@@ -1,0 +1,56 @@
+
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(spacetime)
+Loading required package: sp
+> options(xts_check_TZ=FALSE)
+> 
+> ###################################################
+> ### code chunk number 51: spacetime.Rnw:1089-1098
+> ###################################################
+> library("adehabitatLT")
+Loading required package: ade4
+
+Attaching package: 'ade4'
+
+The following object(s) are masked from 'package:base':
+
+    within
+
+Loading required package: adehabitatMA
+Loading required package: CircStats
+Loading required package: MASS
+Loading required package: boot
+> data("puechabonsp")
+> locs = puechabonsp$relocs
+> xy = coordinates(locs)
+> da = as.character(locs$Date)
+> da = as.POSIXct(strptime(as.character(locs$Date),"%y%m%d", tz = "GMT"))
+> ltr = as.ltraj(xy, da, id = locs$Name)
+> foo = function(dt) dt > 100*3600*24
+> l2 = cutltraj(ltr, "foo(dt)", nextr = TRUE)
+> 
+> ###################################################
+> ### code chunk number 52: spacetime.Rnw:1102-1104 (eval = FALSE)
+> ###################################################
+> sttdf = as(l2, "STTDF")
+> print(stplot(sttdf, by="time*id"))
+> 
+> proc.time()
+   user  system elapsed 
+  1.448   0.084   1.520 
