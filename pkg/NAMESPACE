@@ -27,7 +27,8 @@ export(delta,
 	STT, STTDF,
 	stConstruct,
 	read.tgrass,
-	write.tgrass
+	write.tgrass,
+	nbMult
 )
 
 exportMethods(

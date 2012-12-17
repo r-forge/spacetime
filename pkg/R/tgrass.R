@@ -27,9 +27,9 @@ write.tgrass = function(obj, fname) {
 	} else
 		end.time = NULL
 	n = paste(names(obj), ".tif", sep = "")
-	#olddir = getwd()
-	#dir = tempdir() # gets the same as read.tgrass got!
-	#setwd(dir)
+	olddir = getwd()
+	dir = tempdir() # gets the same as read.tgrass got!
+	setwd(dir)
 	# write .tifs:
 	for (i in 1:nlayers(obj))
 		writeRaster(raster(obj, layer=i), n[i])
@@ -45,5 +45,5 @@ write.tgrass = function(obj, fname) {
 	#tar(file.path(olddir, fname), compression = "gzip")
 	cmd = paste("tar zcf", file.path(olddir, fname), ".")
 	system(cmd)
-	#setwd(olddir)
+	setwd(olddir)
 }
