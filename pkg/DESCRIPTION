@@ -1,6 +1,6 @@
 Package: spacetime
-Version: 1.0-3
-Date: 2012-12-25
+Version: 1.0-4
+Date: 2012-12-26
 Title: classes and methods for spatio-temporal data
 Authors@R: c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		email = "edzer.pebesma@uni-muenster.de"),
