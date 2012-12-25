@@ -63,7 +63,7 @@ unstack.STFDF = function(x, form, which = 1,...) {
   ret
 }
 
-setAs("STFDF", "xts", function(from) {
+as.STFDF.xts = function(from) {
 	nc = seq_along(from@data)
 	ret = do.call(cbind, lapply(nc, function(i) 
 		xts(unstack(from[,,i]), index(from@time), tzone = attr(from@time, "tzone"))))
@@ -72,8 +72,8 @@ setAs("STFDF", "xts", function(from) {
 	else
 		names(ret) = row.names(from@sp)
 	ret
-  }
-)
+}
+setAs("STFDF", "xts", as.STFDF.xts)
 
 subs.STFDF <- function(x, i, j, ... , drop = TRUE) {
 	nr = dim(x)[1]
