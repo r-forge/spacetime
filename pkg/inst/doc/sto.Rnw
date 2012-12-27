@@ -247,6 +247,12 @@ library(rgeos)
 DE = gUnionCascaded(DE_NUTS1)
 @
 
+<<echo=FALSE>>=
+# trick to cirumvent build break on r-forge
+proj4string(DE)=as.character(NA)
+proj4string(rural)=as.character(NA)
+@
+
 and then aggregating the observations within Germany for
 each moment in time:
 <<>>=
