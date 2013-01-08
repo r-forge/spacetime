@@ -24,6 +24,8 @@
 \Year{2012}
 \Volume{51}
 \Issue{7}
+\Submitdate{2011-10-05}
+\Acceptdate{2012-09-26}
 
 %\usepackage[OT1]{fontenc}
 
@@ -73,7 +75,7 @@ be sensibly represented in classes, and to find out which analysis
 and visualisation methods are useful and feasible. We discuss
 the time series convention of representing time intervals by their 
 starting time only. This vignette is the main reference for the
-\proglang{R} package \code{spacetime}; it been published as
+\proglang{R} package \code{spacetime}; it has been published as
 \cite{jss816}, but is kept up-to-date with the software.}
 
 \Keywords{Time series analysis, spatial data, spatio-temporal statistics, Geographic Information Systems}
