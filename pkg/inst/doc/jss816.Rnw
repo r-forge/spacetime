@@ -81,7 +81,6 @@ starting time only. This vignette is the main reference for the
 \Keywords{Time series analysis, spatial data, spatio-temporal statistics, Geographic Information Systems}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 % \VignetteIndexEntry{ spacetime: Spatio-Temporal Data in R }
 % jss options, see http://www.jstatsoft.org/style
 <<eval=TRUE,echo=FALSE>>=

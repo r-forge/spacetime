@@ -7,6 +7,7 @@
 \alias{ltraj-class}
 \alias{coerce,STTDF,ltraj-method} 
 \alias{coerce,ltraj,STTDF-method}
+\alias{[,STTDF-method}
 \alias{plot,STT,missing-method}
 \title{Class "STTDF"}
 \description{ A class for spatio-temporal trajectory data }

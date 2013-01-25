@@ -34,9 +34,9 @@ export(delta,
 exportMethods(
 	timeMatch,
 	plot,
-	stplot,
-	timeIsInterval, 
-	"timeIsInterval<-"
+	stplot
+#	timeIsInterval, 
+#	"timeIsInterval<-"
 )
 
 S3method(as.data.frame, STF)
