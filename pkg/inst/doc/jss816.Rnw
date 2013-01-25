@@ -81,6 +81,7 @@ starting time only. This vignette is the main reference for the
 \Keywords{Time series analysis, spatial data, spatio-temporal statistics, Geographic Information Systems}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 % \VignetteIndexEntry{ spacetime: Spatio-Temporal Data in R }
 % jss options, see http://www.jstatsoft.org/style
 <<eval=TRUE,echo=FALSE>>=
@@ -1126,7 +1127,8 @@ pred.grd = STF(grd, tgrd)
 We will interpolate with a
 separable exponential covariance model, with ranges 750 km and 1.5 days:
 <<>>=
-v = list(space = vgm(0.6, "Exp", 750000), time = vgm(1, "Exp", 1.5 * 3600 * 24))
+v = list(space = vgm(1, "Exp", 750000), time = vgm(1, "Exp", 1.5 * 3600 * 24),
+         sill=0.6, stModel="separable")
 pred = krigeST(values ~ 1, wind.data, pred.grd, v)
 wind.ST = STFDF(grd, tgrd, data.frame(sqrt_speed = pred))
 @
