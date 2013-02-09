@@ -12,7 +12,7 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
     z = names(obj@data)[1]
 	if (missing(at))
 		at = seq(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
-			length.out = cuts + 1)
+			length.out = ifelse(length(cuts) == 1, cuts + 1, length(cuts)))
 	if (mode == "ts") { # multiple time series
 		if (!is.null(scales$draw) && scales$draw == FALSE)
 			scales$draw = TRUE
@@ -61,6 +61,8 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
 			cuts = cuts, as.table = as.table), dots)
 		do.call(levelplot, dots)
 	} else { # multiple spplots: panel for each time step.
+		if (mode != "xy")
+			stop("unknown value for argument mode")
     	form = as.formula(paste(z, "~ time"))
     	sp = geometry(obj@sp)
     	df = data.frame(unstack(as.data.frame(obj), form))
@@ -81,9 +83,15 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
 				Sys.sleep(animate)
 				i = i + 1
 			}
-		} else
-			spplot(x, names.attr = names.attr, as.table = as.table, at = at,
-				cuts = cuts, auto.key = auto.key, scales = scales, ...)
+		} else {
+			args = list(x, names.attr = names.attr,
+				as.table = as.table, at = at, cuts =
+				cuts, auto.key = auto.key, scales =
+				scales, ...)
+			if (is(sp, "SpatialPoints"))
+				args$key.space = key.space
+			do.call(spplot, args)
+		}
 	}
 }
 
