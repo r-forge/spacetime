@@ -1126,11 +1126,12 @@ pred.grd = STF(grd, tgrd)
 We will interpolate with a
 separable exponential covariance model, with ranges 750 km and 1.5 days:
 <<>>=
-v = list(space = vgm(1, "Exp", 750000), time = vgm(1, "Exp", 1.5 * 3600 * 24),
-         sill=0.6, stModel="separable")
-pred = krigeST(values ~ 1, wind.data, pred.grd, v)
-wind.ST = STFDF(grd, tgrd, data.frame(sqrt_speed = pred))
+v = vgmST("separable", space = vgm(1, "Exp", 750000), time = vgm(1, "Exp", 1.5 * 3600 * 24),
+         sill=0.6)
+wind.ST = krigeST(values ~ 1, wind.data, pred.grd, v)
+colnames(wind.ST@data) <- "sqrt_speed"
 @
+% wind.ST = STFDF(grd, tgrd, data.frame(sqrt_speed = pred))
 then creates the \code{STFDF} object with interpolated values,
 the results of which are shown in Figure~\ref{fig:wind}, created
 by
