@@ -63,9 +63,12 @@ as.data.frame.STIDF = function(x, row.names = NULL, ...) {
 setAs("STIDF", "data.frame", function(from) as.data.frame.STIDF(from))
 
 as.xts.STIDF = function(x, ...) {
-	xts(x@data, index(x@time), tzone = attr(x@time, "tzone"))
+	ix = index(x@time)
+	if (is(ix, "Date"))
+		xts(x@data, index(x@time))
+	else
+		xts(x@data, index(x@time), tzone = attr(x@time, "tzone"))
 }
-
 setAs("STIDF", "xts", function(from) as.xts.STIDF(from))
 
 subs.STIDF <- function(x, i, j, ... , drop = FALSE) {

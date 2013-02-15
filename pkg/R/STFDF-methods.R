@@ -64,9 +64,17 @@ unstack.STFDF = function(x, form, which = 1,...) {
 }
 
 as.STFDF.xts = function(from) {
-	nc = seq_along(from@data)
-	ret = do.call(cbind, lapply(nc, function(i) 
-		xts(unstack(from[,,i]), index(from@time), tzone = attr(from@time, "tzone"))))
+	nc = seq_along(from@data) # attribute columns indexes
+	ret = do.call(cbind, lapply(nc, 
+			function(i) {
+				ix = index(from@time)
+				if (is(ix, "Date"))
+					xts(unstack(from[,,i]), ix)
+				else
+					xts(unstack(from[,,i]), ix, tzone = attr(from@time, "tzone"))
+			}
+		)
+	)
 	if (length(nc) > 1)
 		names(ret) = as.vector(t(outer(names(from@data), row.names(from@sp), paste, sep = ".")))
 	else
@@ -133,8 +141,13 @@ subs.STFDF <- function(x, i, j, ... , drop = TRUE) {
 		if (length(s) == 1 && all(s > 0)) { # space index has only 1 item:
 			if (length(t) == 1) # drop time as well:
 				x = x@data[1,]
-			else
-				x = xts(x@data, index(x@time), tzone = attr(x@time, "tzone"))
+			else {
+				ix = index(x@time)
+				if (is(ix, "Date"))
+					x = xts(x@data, ix)
+				else
+					x = xts(x@data, ix, tzone = attr(x@time, "tzone"))
+			}
 		} else if (length(t) == 1) # only one time step:
 			x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
 	}

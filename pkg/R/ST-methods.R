@@ -1,9 +1,10 @@
-.supportedTime = c("Date", "POSIXct", "timeDate", "yearmon", "yearqtr")
+#.supportedTime = c("Date", "POSIXct", "timeDate", "yearmon", "yearqtr")
 
 ST = function(sp, time, endTime) {
 	stopifnot(is(endTime, "POSIXct"))
 	if (!is(time, "xts")) {
-		stopifnot(is(time, .supportedTime))
+		#stopifnot(is(time, .supportedTime))
+		stopifnot(timeBased(time))
 		t = 1:length(time)
 		stopifnot(order(time, t) == t)
 		time = xts(matrix(1:length(time), ncol = 1,

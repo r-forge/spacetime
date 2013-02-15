@@ -117,11 +117,15 @@ subs.STSDF <- function(x, i, j, ... , drop = TRUE) {
 		if (length(s) == 1) { # space index has only 1 item:
 			if (length(t) == 1)
 				x = x@data[1,1,drop=TRUE]
-			else
-				x = xts(x@data, index(x@time[x@index[,2]]), 
-						tzone = attr(x@time, "tzone"))
+			else {
+				ix = index(x@time[x@index[,2]])
+				if (is(ix, "Date"))
+					x = xts(x@data, ix)
+				else
+					x = xts(x@data, ix, tzone = attr(x@time, "tzone"))
                 # added index to achieve 
 				#   (nrow(x)==length(order.by)) in index() # TG
+			}
 		} else if (length(t) == 1) { # only one time item
 			x = addAttrToGeom(x@sp[x@index[,1],], x@data, match.ID = FALSE)
             # added index to achieve matching SpatialPoints and data.frame # TG
