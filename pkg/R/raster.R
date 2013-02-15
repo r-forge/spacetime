@@ -4,7 +4,7 @@ setAs('RasterStackBrick', 'STFDF',
 		require(raster)
 		# TIME:
         tvals <- getZ(from)
-        if (is.null(tvals) || !is(tvals, .supportedTime))
+        if (is.null(tvals) || !timeBased(tvals))
             stop('Raster object must have Z values representing time')
 		end.time = attr(from, "end.time")
 		if (is.null(end.time))
