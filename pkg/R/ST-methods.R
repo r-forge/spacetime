@@ -118,9 +118,7 @@ summary.ST = function(object, ...) {
 	obj[["sp"]] = summary(object@sp)
 	obj[["time"]] = summary(object@time)
     if ("data" %in% slotNames(object))
-        if (ncol(object@data) > 1)
-                obj[["data"]] = summary(object@data)
-            else obj[["data"]] = summary(object@data[[1]])
+		obj[["data"]] = summary(object@data)
     class(obj) = "summary.ST"
     obj
 }

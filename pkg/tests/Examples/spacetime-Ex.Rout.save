@@ -54,11 +54,11 @@ Coordinate Reference System (CRS) arguments: NA
 
 Slot "time":
            timeIndex
-2008-01-01         1
-2008-01-02         2
+2008-01-02         1
+2008-01-03         2
 
 Slot "endTime":
-[1] "2008-01-03 01:00:00 CET" "2008-01-04 01:00:00 CET"
+[1] "2008-01-03 UTC" "2008-01-04 UTC"
 
 > 
 > 
@@ -773,6 +773,7 @@ detaching ‘package:gstat’
 +   stplot(Fires, sp.layout=list("sp.lines", cc))
 + }
 Loading required package: rgdal
+rgdal: version: 0.8-5, (SVN revision 449)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.9.2, released 2012/10/08
 Path to GDAL shared files: /usr/share/gdal/1.9
@@ -969,6 +970,7 @@ detaching ‘package:mapdata’, ‘package:maps’, ‘package:maptools’,
 Loading required package: foreign
 Loading required package: grid
 Loading required package: lattice
+Checking rgeos availability: TRUE
 > states = map2SpatialPolygons(states.m, IDs=IDs)
 > 
 > library(plm)
@@ -1294,7 +1296,7 @@ point3               30.40
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  15.1 0.412 15.555 0 0 
+Time elapsed:  7.932 0.108 8.123 0 0 
 > grDevices::dev.off()
 null device 
           1 

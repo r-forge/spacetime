@@ -61,7 +61,8 @@ from the open geospatial consortium is described
 <<>>=
 dbname = "postgis"
 user = "edzer"
-password = "pw"
+#password = "pw"
+password = ""
 @
 
 Next, we will create a driver and connect to the database: 

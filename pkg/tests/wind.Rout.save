@@ -113,6 +113,7 @@ Loading required package: sp
 Loading required package: gstat
 Loading required package: maps
 Loading required package: rgdal
+rgdal: version: 0.8-5, (SVN revision 449)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.9.2, released 2012/10/08
 Path to GDAL shared files: /usr/share/gdal/1.9
@@ -125,4 +126,4 @@ Checking rgeos availability: TRUE
 > 
 > proc.time()
    user  system elapsed 
-  1.964   0.180   2.132 
+  2.168   0.100   2.267 
