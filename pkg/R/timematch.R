@@ -27,11 +27,11 @@ if (!isGeneric("timeMatch"))
 
 setMethod(timeMatch, signature(x = "ST", y = "ST"),
 	function(x, y, returnList = FALSE) {
-		if (timeIsInterval(x))
+		if (any(index(x@time) != x@endTime))
 			end.x = x@endTime
 		else
 			end.x = NULL
-		if (timeIsInterval(y))
+		if (any(index(y@time) != y@endTime))
 			end.y = y@endTime
 		else
 			end.y = NULL

@@ -12,8 +12,6 @@
 over.xts = function(x, y, returnList = FALSE, fn = NULL, ...) {
 	ix = index(x)
 	iy = index(y)
-	timeIsInterval(ix) = timeIsInterval(x)
-	timeIsInterval(iy) = timeIsInterval(y)
 	if (returnList) { # get all matches:
 		tm = timeMatch(ix, iy, returnList = TRUE)
 		stopifnot(is.null(fn))

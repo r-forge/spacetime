@@ -57,8 +57,6 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 					endTime = as.POSIXct(index(tm))
 			}
 			attr(endTime, "tzone") = attr(tm, "tzone")
-			#if (!missing(interval))
-			#	timeIsInterval(tm) = interval
 			sp = as.character(sort(unique(x[,space])))
 			return(STFDF(SpatialObj[sp], tm, 
 				x[order(x[,time],as.character(x[,space])),], endTime))

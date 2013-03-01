@@ -108,7 +108,6 @@ as.STSDF.STIDF = function(from) {
 	# time -- use the fact that xts objects are in time order:
 	ix = index(from@time)
 	time = unique(ix)
-	#timeIsInterval(time) = timeIsInterval(from@time)
 	# not that simple -- TODO: glue together & check endTime...
 	ir = rle(as.numeric(ix))$lengths
 	index[,2] = rep(1:length(ir), ir)
@@ -130,7 +129,6 @@ setAs("STT", "STI",
 		time = do.call(c, lapply(from@traj, index))
 		o = order(time)
 		to = time[o,]
-		#timeIsInterval(to) = timeIsInterval(from)
 		# TODO: take care of endTime??
 		new("STI", ST(sp[o,,drop=FALSE], to)) # reorders!
 	}
@@ -140,7 +138,6 @@ setAs("STTDF", "STIDF",
 		sp = do.call(rbind, lapply(from@traj, function(x) x@sp))
 		time = do.call(c, lapply(from@traj, index))
 		attr(time, "tzone") = attr(index(from@traj[[1]]), "tzone")
-		#timeIsInterval(time) = timeIsInterval(from)
 		# TODO: take care of endTime?
 		STIDF(sp, time, from@data)
 	}

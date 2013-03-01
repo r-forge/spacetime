@@ -57,6 +57,7 @@ sst.m = rep(1:12, length.out = 399)
 # dates:
 sst.Date = as.Date(paste(sst.y, sst.m, "01", sep="-"), "%Y-%m-%d")
 # as year/months:
+library(zoo)
 sst.ym = as.yearmon(sst.Date)
 
 # landmask:

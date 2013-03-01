@@ -1,6 +1,6 @@
 aggregate_ST_temporal = function(x, by, FUN = mean, ..., simplify = TRUE) {
 	stopifnot("data" %in% slotNames(x))
-	require(zoo)
+	require(zoo) # otherwise, missing MATCH errors appear later on.
 	x = as(x, "STFDF")
 	if (is.function(by))
 		cc = by(index(x@time)) # time format index

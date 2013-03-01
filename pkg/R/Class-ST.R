@@ -12,7 +12,6 @@ setClass("ST",
 	stopifnot(tz1.set == tz2.set)
 	if (tz1.set)
 		stopifnot(tz1 == tz2)
-	#stopifnot(!is.na(timeIsInterval(object)))
 	if (any(names(object@time) %in% names(object@sp)))
 		stop("name conflict: attribute names in sp and time slot must differ")
 	return(TRUE)
