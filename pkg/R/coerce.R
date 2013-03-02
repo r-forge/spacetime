@@ -127,10 +127,9 @@ setAs("STT", "STI",
 	function(from) {
 		sp = do.call(rbind, lapply(from@traj, function(x) x@sp))
 		time = do.call(c, lapply(from@traj, index))
+		endTime = do.call(c, lapply(from@traj, function(x) x@endTime))
 		o = order(time)
-		to = time[o,]
-		# TODO: take care of endTime??
-		new("STI", ST(sp[o,,drop=FALSE], to)) # reorders!
+		new("STI", ST(sp[o,,drop=FALSE], time[o], endTime[o])) # reorder here
 	}
 )
 setAs("STTDF", "STIDF", 
@@ -138,13 +137,16 @@ setAs("STTDF", "STIDF",
 		sp = do.call(rbind, lapply(from@traj, function(x) x@sp))
 		time = do.call(c, lapply(from@traj, index))
 		attr(time, "tzone") = attr(index(from@traj[[1]]), "tzone")
-		# TODO: take care of endTime?
-		STIDF(sp, time, from@data)
+		endTime = do.call(c, lapply(from@traj, function(x) x@endTime))
+		STIDF(sp, time, from@data, endTime) # reorders there
 	}
 )
 setAs("STIDF", "STTDF", 
 	function(from) {
-		traj = lapply(split(from, from$burst), function(x) as(x, "STI"))
+		if (is.null(from$burst))
+			traj = list(as(from, "STI"))
+		else
+			traj = lapply(split(from, from$burst), function(x) as(x, "STI"))
 		STIbox = STI(SpatialPoints(cbind(range(from$x), range(from$y)), 
 				from@sp@proj4string), range(from$date))
 		new("STTDF", new("STT", STIbox, traj = traj), data = from@data)
@@ -167,3 +169,58 @@ as.STIDF.Spatial = function(from) {
 }
 setAs("STIDF", "Spatial", as.STIDF.Spatial)
 setAs("STSDF", "Spatial", function(from) as(as(from, "STIDF"), "Spatial"))
+as.STI.Spatial = function(from)
+	addAttrToGeom(geometry(from@sp), data.frame(time = index(from@time)), match.ID = FALSE)
+setAs("STI", "Spatial", as.STI.Spatial)
+
+setClass("ltraj", representation("list"))
+
+setAs("ltraj", "STTDF", 
+	function(from) {
+		d = do.call(rbind, from)
+		ns = sapply(from, nrow)
+		burst = sapply(from, function(x) attr(x, "burst"))
+		id = sapply(from, function(x) attr(x, "id"))
+		d$burst = factor(rep(burst, ns))
+		d$id = factor(rep(id, ns))
+		toSTI = function(x) {
+			time = x[["date"]]
+			ret = STI(SpatialPoints(x[c("x", "y")]), time)
+			attr(ret, "burst") = attr(x, "burst")
+			attr(ret, "id") = attr(x, "id")
+			ret
+		}
+		rt = range(d$date)
+		sp = SpatialPoints(cbind(range(d$x), range(d$y)))
+		coordnames(sp) = c("x", "y")
+		STIbox = STI(sp, rt)
+		STTDF(STT(lapply(from, toSTI), STIbox), data = d)
+	}
+)
+
+setAs("STTDF", "ltraj", 
+	function(from) {
+		x = as(from, "STIDF")
+		xy = coordinates(x@sp)
+		da = index(x@time)
+		as.ltraj(xy, da, id = x[["id"]], burst = x[["burst"]])
+	}
+)
+
+setAs("STT", "data.frame", 
+	function(from)
+		do.call(rbind, lapply(from@traj, function(x) as(x, "data.frame")))
+)
+
+setAs("STTDF", "data.frame", 
+	function(from)
+		cbind(as(geometry(from), "data.frame"), from@data)
+)
+setAs("STTDF", "SpatialLines",
+	function(from) {
+		nm = names(from@traj)
+		l = lapply(from@traj, function(x) Line(coordinates(x)))
+		l2 = lapply(1:length(l), function(x) Lines(l[x], nm[x]))
+		SpatialLines(l2)
+	}
+)

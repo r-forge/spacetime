@@ -1,4 +1,7 @@
-STT = function(STbox = NULL, trajLst) {
+STT = function(trajLst, STbox = NULL) {
+	stopifnot(length(trajLst) > 0)
+	if (is.null(names(trajLst)))
+		names(trajLst) = 1:length(trajLst)
 	if (is.null(STbox)) {
     	bb = sapply(trajLst, function(x) bbox(x@sp))
     	sp = SpatialPoints(rbind(c(min(bb[1,]), min(bb[2,])),
@@ -15,39 +18,20 @@ STTDF = function(STT, data) {
 	new("STTDF", STT, data = data)
 }
 
-setClass("ltraj", representation("list"))
+index.STT = function(x, ...) {
+	do.call(c, lapply(x@traj, index))
+}
+index.STTDF = index.STT
 
-setAs("ltraj", "STTDF", 
-	function(from) {
-		d = do.call(rbind, from)
-		ns = sapply(from, nrow)
-		burst = sapply(from, function(x) attr(x, "burst"))
-		id = sapply(from, function(x) attr(x, "id"))
-		d$burst = factor(rep(burst, ns))
-		d$id = factor(rep(id, ns))
-		toSTI = function(x) {
-			time = x[["date"]]
-			ret = STI(SpatialPoints(x[c("x", "y")]), time)
-			attr(ret, "burst") = attr(x, "burst")
-			attr(ret, "id") = attr(x, "id")
-			ret
-		}
-		rt = range(d$date)
-		STIbox = STI(SpatialPoints(cbind(range(d$x), range(d$y))), rt)
-		STTDF(STT(STIbox, trajLst = lapply(from, toSTI)), data = d)
-	}
-)
-setAs("STTDF", "ltraj", 
-	function(from) {
-		x = as(from, "STIDF")
-		xy = coordinates(x@sp)
-		da = index(x@time)
-		as.ltraj(xy, da, id = x[["id"]], burst = x[["burst"]])
-	}
-)
-setMethod("coordinates", "STT", function(obj) {
+setMethod("geometry", "STTDF", function(obj) as(obj, "STT"))
+
+setMethod("coordinates", "STT", function(obj)
 		do.call(rbind, lapply(obj@traj, coordinates))
-	}
+)
+
+setMethod("addAttrToGeom", signature(x = "STT", y = "data.frame"),
+    function(x, y, match.ID, ...)
+		new("STTDF", x, data = y)
 )
 
 # plot.STTDF = function(x, y,..., byBurst = TRUE, 
@@ -73,7 +57,8 @@ setMethod("coordinates", "STT", function(obj) {
 # 
 # setMethod("plot", signature(x = "STTDF", y = "missing"), plot.STTDF)
 
-subs.STTDF <- function(x, i, j, ... , drop = FALSE) {
+subs.STTDF <- function(x, i, j, ... ,
+		useGeos = ("rgeos" %in% .packages()), drop = FALSE) {
 	missing.i = missing(i)
 	missing.j = missing(j)
 	missing.k = k = TRUE
@@ -86,46 +71,50 @@ subs.STTDF <- function(x, i, j, ... , drop = FALSE) {
 	if (missing.i && missing.j && missing.k)
 		return(x)
 
-	#stop("not yet implemented")
-	# space
 	if (missing.i)
 		i = TRUE
+	
+	l = lapply(x@traj, length) # lengths of trajectories
 
 	if (is(i, "Spatial") || is(i, "ST")) {
-		# select trajectories that match
-		i = !is.na(over(x@sp, geometry(i)))
+		# select full trajectories:
+		if (useGeos) {
+			require(rgeos)
+			i = !is.na(over(as(x, "SpatialLines"), geometry(i)))
+		} else
+			i = sapply(x@traj, function(y) any(!is.na(over(y@sp, geometry(i)))))
 	} 
 	if (is.logical(i)) {
 		i = rep(i, length.out = length(x@traj))
 		i = which(i)
-	} else if (is.character(i)) { # suggested by BG:
-		i = match(i, row.names(x@sp), nomatch = FALSE)
+	} else if (is.character(i)) { # 
+		# what if names are not present?
+		i = match(i, names(x@trajLst), nomatch = FALSE)
 	}
 
 	# time
 	if (missing.j)
 		j = rep(TRUE, length=nrow(x@time))
 	else {
-		if (is.logical(j))
-			j = which(j)
-		t = xts(matrix(1:nrow(x@time), dimnames=list(NULL, "timeIndex")), 
-				index(x@time))[j]
-		j = as.vector(t[,1])
+		# defer to [.xts:
+		tsel = xts(rep(1:length(l), l), index(x))[j,]
+		j = unique(as.vector(tsel[,1]))
+		i = i[i %in% j]
 	}
+
+	if (length(i) == 0)
+		return(NULL)
+
+	ret = STT(x@traj[i])
 	
-	if(is.numeric(i))
-		i = 1:nrow(x@time) %in% i
-	if(is.numeric(j))
-		j = 1:nrow(x@time) %in% j
-
-	i = i & j
-
-	x@sp = x@sp[i,]
-	x@time = x@time[i,]
-	x@endTime = x@endTime[i]
-	x@data = x@data[i, k, drop = FALSE]
-	if (drop && length(unique(index(x@time))) == 1)
-		x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
-	x
+	if ("data" %in% slotNames(x)) { # STTDF
+		sel = rep(1:length(l), l) %in% i
+		ret = STTDF(ret, x@data[sel, k, drop = FALSE])
+	}
+	ret
 }
 setMethod("[", "STTDF", subs.STTDF)
+setMethod("[", "STT", subs.STTDF)
+
+length.STT = function(x) { length(x@traj) }
+length.STTDF = function(x) { length(x@traj) }

@@ -258,13 +258,13 @@ each moment in time:
 <<>>=
 x = aggregate(rural[,"2008"], DE, mean, na.rm=TRUE)
 class(x)
-plot(x)
+plot(x[,"PM10"])
 @
 shown in figure \ref{fig:x}.
 
 \begin{figure}
 <<fig=TRUE,echo=FALSE>>=
-plot(x)
+plot(x[,"PM10"])
 @
 \caption{Time series plot of daily rural background PM10, averaged
 over Germany}

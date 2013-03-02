@@ -160,23 +160,23 @@ setMethod("[", "STFDF", subs.STFDF)
 # containing NAs in the data
 # Tom Gottfried
 na.omit.STFDF <- function(object, drop=TRUE, ...){
-  data <- na.omit(object@data)
-  omit <- attr(data, "na.action")
-  n <- length(object@sp)
-  s <- unique((omit-1) %% n + 1)
-  t <- unique((omit-1) %/% n + 1)
-  if (drop && (length(s)==n || length(t)==nrow(object@time)))
-    return(NA)
-  else
+	data <- na.omit(object@data)
+	omit <- attr(data, "na.action")
+	n <- length(object@sp)
+	s <- unique((omit-1) %% n + 1)
+	t <- unique((omit-1) %/% n + 1)
+	if (drop && (length(s)==n || length(t)==nrow(object@time)))
+		return(NA)
+	else
 #    return(object[-s,-t, drop=drop])
               # <= negative indices are partly not handled by [-method
 #    return(object[(1:n)[!(1:n) %in% s],
 #                  (1:nrow(object@time))[!1:nrow(object@time) %in% t],
 #                  drop=drop])
               # <= logical indices partly not handled by [-method
-    return(object[(1:n)[!(1:n) %in% s],
-                  (1:nrow(object@time))[!1:nrow(object@time) %in% t],
-                  drop=drop])
+		return(object[(1:n)[!(1:n) %in% s],
+			(1:nrow(object@time))[!1:nrow(object@time) %in% t],
+			drop=drop])
 }
 
 setMethod("addAttrToGeom", signature(x = "STF", y = "data.frame"),

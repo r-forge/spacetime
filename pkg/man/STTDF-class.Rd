@@ -7,6 +7,7 @@
 \alias{ltraj-class}
 \alias{coerce,STTDF,ltraj-method} 
 \alias{coerce,ltraj,STTDF-method}
+\alias{[,STT-method}
 \alias{[,STTDF-method}
 \alias{plot,STT,missing-method}
 \title{Class "STTDF"}
@@ -17,17 +18,18 @@ Objects of this class carry sparse (irregular) space/time data }
   \describe{
     \item{\code{sp}:}{Object of class \code{"Spatial"}, containing the bounding
 	box of all trajectories}
-    \item{\code{time}:}{Object of class \code{"xts"}, containing the temporal bounding
-	box of all trajectories}
-	\item{\code{traj}:}{Object of class \code{list}, which element holding
-	a \link{STI} object with an individual trajectory; }
+    \item{\code{time}:}{Object of class \code{"xts"}, containing the temporal 
+	bounding box of all trajectories}
+	\item{\code{traj}:}{Object of class \code{list}, each element holding
+	an \link{STI} object reflecting a single trajectory; }
 	\item{\code{data}:}{Object of class \code{data.frame}, which holds
-	the data values }
+	the data values for each feature in each trajectory }
   }
 }
 \section{Methods}{
   \describe{
-    \item{[}{\code{signature(x = "STTDF")}: selects spatial-temporal entities, and attributes } 
+    \item{[}{\code{signature(x = "STTDF")}: select trajectories, based
+	on index, or spatial and/or temporal predicates } 
 
     % \item{plot}{\code{signature(x = "Spatial", y = "missing")}: plot method
 	% for spatial objects; does nothing but setting up a plotting region choosing
@@ -55,5 +57,37 @@ individual items. }
 
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
 \references{ http://www.jstatsoft.org/v51/i07/ }
+\examples{
+m = 3# nr of trajectories
+n = 100 # length of each
+l = vector("list", m)
+t0 = as.POSIXct("2013-05-05",tz="GMT")
+set.seed(1331) # fix randomness
+for (i in 1:m) {
+    x = cumsum(rnorm(n))
+    y = cumsum(rnorm(n))
+    sp = SpatialPoints(cbind(x,y))
+    #t = t0 + (0:(n-1) + (i-1)*n) * 60
+    t = t0 + (0:(n-1) + (i-1)*n/2) * 60
+    l[[i]] = STI(sp, t)
+}
+stt= STT(l)
+sttdf = STTDF(stt, data.frame(attr = rnorm(n*m), id = paste("ID", rep(1:m, each=n))))
+x = as(stt, "STI")
+stplot(sttdf, col=1:m, scales=list(draw=TRUE))
+stplot(sttdf, by = "id")
+stplot(sttdf[1])
+stplot(sttdf[1])
 
+# select a trajectory that intersect with a polygon
+p = Polygon(cbind(x=c(-20,-15,-15,-20,-20),y=c(10,10,15,15,10)))
+pol=SpatialPolygons(list(Polygons(list(p), "ID")))
+stplot(sttdf[pol])
+names(sttdf[pol]@traj)
+stplot(sttdf[1:2],col=1:2)
+stplot(sttdf[,t0])
+stplot(sttdf[,"2013"])
+stplot(sttdf[pol,"2013"])
+is.null(sttdf[pol,t0])
+}
 \keyword{classes}

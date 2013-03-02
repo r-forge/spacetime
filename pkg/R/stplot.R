@@ -124,17 +124,21 @@ stplot.STIDF = function(obj, names.attr = NULL, ...,
 		panel = panel, sp.layout = sp.layout, ...)
 }
 
-panel.sttrajplot = function(x, y, col, sp.layout, ..., GRP, lwd) {
+panel.sttrajplot = function(x, y, col, sp.layout, ..., GRP, lwd, lty = 1) {
     sp:::sp.panel.layout(sp.layout, panel.number())
 	if (length(GRP) == 1 && length(lwd) == 1 && length(col) == 1)
 		llines(x, y, lwd = lwd, col = col)
 	else {
-		lwd = rep(lwd, length.out = length(x)-1)
-		col = rep(col, length.out = length(x)-1)
-		if (length(x) > 1)
-			for (i in 1:(length(x)-1))
-				if (GRP[i] == GRP[i+1])
-					llines(x[i:(i+1)], y[i:(i+1)], lwd = lwd[i], col = col[i])
+		ug = unique(GRP)
+		lug = length(ug)
+		lwd = rep(lwd, length.out = lug)
+		lty = rep(lty, length.out = lug)
+		col = rep(col, length.out = lug)
+
+		for (i in ug) {
+			sel = (GRP == i)
+			llines(x[sel], y[sel], lwd = lwd[i], col = col[i])
+		}
 	}
 }
 
@@ -142,28 +146,25 @@ stplot.STTDF = function(obj, names.attr = NULL, ...,
 		as.table = TRUE, by = c("none", "burst", "id", "time"), 
 		scales = list(draw=FALSE), xlab = NULL, ylab = NULL, 
 		type = 'l', number = 6, overlap = 0, asp,
-		col = 1, lwd = 1, panel = panel.sttrajplot, sp.layout = NULL,
+		col = 1, lwd = 1, lty = 1, panel = panel.sttrajplot, sp.layout = NULL,
 		xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,]
 		) {
-
 	if (missing(asp))
 		asp = mapasp(obj@sp)
 	scales = sp:::longlat.scales(obj@sp, scales = scales, xlim, ylim)
-	GRP = rep(1:length(obj@traj), times = lapply(obj@traj, length))
+	GRP = rep(1:length(obj@traj), times = sapply(obj@traj, length))
 
-	obj = as(obj, "STIDF")
 	f =  paste(rev(coordnames(obj@sp)), collapse=" ~ ")
 	by = by[1]
 	if (by != "none")
 		f = paste(f, "|", by)
-
-	obj = as.data.frame(obj)
+	obj = as(obj, "data.frame")
 	if (is.numeric(number) && number > 1)
 		obj$time = equal.count(obj$time, number = number, overlap = overlap)
 	xyplot(as.formula(f), obj, asp = asp, type = type,
 		as.table = as.table, scales = scales, xlab = xlab, ylab = ylab, 
-		panel = panel, sp.layout = sp.layout, col = col, lwd = lwd, ..., 
-		GRP = GRP)
+		panel = panel, sp.layout = sp.layout, col = col, lwd = lwd, 
+		lty = lty, ..., GRP = GRP)
 }
 
 setMethod("stplot", signature("STTDF"), stplot.STTDF)

@@ -126,7 +126,10 @@ setMethod("summary", "ST", summary.ST)
 
 print.summary.ST = function(x, ...) {
     cat(paste("Object of class ", x[["class"]], "\n", sep = ""))
-	cat(" with Dimensions (s, t, attr): (")
+	if (is(x, "STT"))
+		cat(" with Dimensions (ntraj, total_points, attr): (")
+	else
+		cat(" with Dimensions (s, t, attr): (")
 	cat(paste(x[["dim"]], collapse = ", "))
 	cat(")\n")
 	cat("[[Spatial:]]\n")
