@@ -29,7 +29,7 @@ install:
 	$(R) CMD INSTALL spacetime_*tar.gz
 
 check:
-	rm -fr $(spacetime)*tar.gz
+	rm -fr spacetime*tar.gz
 	make build
 	_R_CHECK_CRAN_INCOMING_USE_ASPELL_=true $(R) CMD check --as-cran spacetime*gz
 

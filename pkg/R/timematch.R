@@ -3,6 +3,8 @@
 #}
 
 delta = function(x) {
+	if (any(is.na(x)))
+		stop("time values cannot be negative")
 	augment.with.one = function(x) {
 		ux = unique(x)
 		l = length(ux)

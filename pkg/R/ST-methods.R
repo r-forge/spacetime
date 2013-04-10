@@ -1,15 +1,21 @@
 #.supportedTime = c("Date", "POSIXct", "timeDate", "yearmon", "yearqtr")
 
 ST = function(sp, time, endTime) {
-	stopifnot(is(endTime, "POSIXct"))
 	if (!is(time, "xts")) {
 		#stopifnot(is(time, .supportedTime))
-		stopifnot(timeBased(time))
+		if (!timeBased(time))
+			stop("time is not a time based class")
 		t = 1:length(time)
-		stopifnot(order(time, t) == t)
+		if (any(order(time, t) != t))
+			stop("time must be ordered")
 		time = xts(matrix(1:length(time), ncol = 1,
 				dimnames = list(NULL, "timeIndex")), time)
 	}
+	if (any(is.na(index(time))))
+		stop("time values cannot be negative")
+	if (any(is.na(endTime)))
+		stop("endTime values cannot be negative")
+	stopifnot(is(endTime, "POSIXct"))
 	attr(endTime, "tzone") = attr(time, "tzone")
 	if (is(sp, "SpatialGrid")) {
 		sp = as(sp, "SpatialPixels")
