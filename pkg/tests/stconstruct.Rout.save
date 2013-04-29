@@ -1,8 +1,7 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 3.0.0 (2013-04-03) -- "Masked Marvel"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +22,7 @@ Loading required package: zoo
 
 Attaching package: 'zoo'
 
-The following object(s) are masked from 'package:base':
+The following object is masked from 'package:base':
 
     as.Date, as.Date.numeric
 
@@ -46,7 +45,7 @@ Loading required package: bdsmatrix
 
 Attaching package: 'bdsmatrix'
 
-The following object(s) are masked from 'package:base':
+The following object is masked from 'package:base':
 
     backsolve
 
@@ -100,4 +99,4 @@ attr(,"package")
 > 
 > proc.time()
    user  system elapsed 
-  1.712   0.088   1.797 
+  2.340   0.076   2.420 

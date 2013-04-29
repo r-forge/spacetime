@@ -108,11 +108,18 @@ if (!isGeneric("plot"))
 if (!isGeneric("spTransform"))
 	setGeneric("spTransform", function(x, CRSobj, ...)
 		standardGeneric("spTransform"))
-spTransform.ST = function(x, CRSobj, ...) {
-	require(rgdal)
+
+spTransform.STT = function(x, CRSobj, ...) {
+	stopifnot(require(rgdal))
+	x@traj = lapply(x@traj, spTransform, CRSobj)
 	x@sp = spTransform(x@sp, CRSobj)
-	if ("traj" %in% slotNames(x))
-		x@traj = lapply(x@traj, spTransform, CRSobj)
+	x
+}
+setMethod("spTransform", signature("STT", "CRS"), spTransform.STT)
+
+spTransform.ST = function(x, CRSobj, ...) {
+	stopifnot(require(rgdal))
+	x@sp = spTransform(x@sp, CRSobj)
 	x
 }
 setMethod("spTransform", signature("ST", "CRS"), spTransform.ST)

@@ -1,8 +1,7 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 3.0.0 (2013-04-03) -- "Masked Marvel"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -24,7 +23,7 @@ Type 'q()' to quit R.
 > library('spacetime')
 Loading required package: sp
 > 
-> assign(".oldSearch", search(), pos = 'CheckExEnv')
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("ST-class")
 > ### * ST-class
@@ -349,7 +348,7 @@ Loading required package: zoo
 
 Attaching package: ‘zoo’
 
-The following object(s) are masked from ‘package:base’:
+The following object is masked from ‘package:base’:
 
     as.Date, as.Date.numeric
 
@@ -739,11 +738,11 @@ detaching ‘package:xts’, ‘package:zoo’
 > 
 > x = as.POSIXct("2000-01-01") + (0:9) * 3600
 > delta(x)
- [1] "2000-01-01 01:00:00 CET" "2000-01-01 02:00:00 CET"
- [3] "2000-01-01 03:00:00 CET" "2000-01-01 04:00:00 CET"
- [5] "2000-01-01 05:00:00 CET" "2000-01-01 06:00:00 CET"
- [7] "2000-01-01 07:00:00 CET" "2000-01-01 08:00:00 CET"
- [9] "2000-01-01 09:00:00 CET" "2000-01-01 10:00:00 CET"
+ [1] "2000-01-01 01:00:00 CEST" "2000-01-01 02:00:00 CEST"
+ [3] "2000-01-01 03:00:00 CEST" "2000-01-01 04:00:00 CEST"
+ [5] "2000-01-01 05:00:00 CEST" "2000-01-01 06:00:00 CEST"
+ [7] "2000-01-01 07:00:00 CEST" "2000-01-01 08:00:00 CEST"
+ [9] "2000-01-01 09:00:00 CEST" "2000-01-01 10:00:00 CEST"
 > 
 > 
 > 
@@ -824,7 +823,7 @@ detaching ‘package:gstat’
 +   stplot(Fires, sp.layout=list("sp.lines", cc))
 + }
 Loading required package: rgdal
-rgdal: version: 0.8-5, (SVN revision 449)
+rgdal: version: 0.8-8, (SVN revision 463)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.9.2, released 2012/10/08
 Path to GDAL shared files: /usr/share/gdal/1.9
@@ -1029,7 +1028,7 @@ Loading required package: bdsmatrix
 
 Attaching package: ‘bdsmatrix’
 
-The following object(s) are masked from ‘package:base’:
+The following object is masked from ‘package:base’:
 
     backsolve
 
@@ -1041,7 +1040,7 @@ Loading required package: zoo
 
 Attaching package: ‘zoo’
 
-The following object(s) are masked from ‘package:base’:
+The following object is masked from ‘package:base’:
 
     as.Date, as.Date.numeric
 
@@ -1296,7 +1295,7 @@ Loading required package: zoo
 
 Attaching package: ‘zoo’
 
-The following object(s) are masked from ‘package:base’:
+The following object is masked from ‘package:base’:
 
     as.Date, as.Date.numeric
 
@@ -1346,8 +1345,8 @@ point3               30.40
 > 
 > ### * <FOOTER>
 > ###
-> cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.808 0.164 7.991 0 0 
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  9.728 0.208 9.979 0 0 
 > grDevices::dev.off()
 null device 
           1 
