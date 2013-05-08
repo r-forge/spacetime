@@ -1271,8 +1271,9 @@ and ``GW'' \cite{gleditsch}. The variables COWSMONTH and COWEMONTH
 denote the start month and end month, respectively, according to
 the COW data base.
 
-In the following fragment, we create the time index:
+In the following fragment, we dselect missing dates and create the time index:
 <<>>=
+cs = cs[cs$COWSYEAR > -1,]
 begin = as.POSIXct(paste(cs$COWSYEAR, cs$COWSMONTH, cs$COWSDAY, sep="-"), 
     tz = "GMT")
 end = as.POSIXct(paste(cs$COWEYEAR, cs$COWEMONTH,cs$COWEDAY, sep="-"), 
