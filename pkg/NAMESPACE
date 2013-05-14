@@ -26,6 +26,7 @@ export(delta,
 	STI, STIDF,
 	STT, STTDF,
 	stConstruct,
+	stInteraction,
 	read.tgrass,
 	write.tgrass,
 	nbMult
