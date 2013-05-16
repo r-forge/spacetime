@@ -3,7 +3,8 @@
 \title{ create ST* objects from long or wide tables }
 \description{ create ST* objects from long or wide tables }
 \usage{ 
-stConstruct(x, space, time, SpatialObj = NULL, TimeObj = NULL, crs = CRS(as.character(NA)), interval, endTime)
+stConstruct(x, space, time, SpatialObj = NULL, TimeObj = NULL, 
+	crs = CRS(as.character(NA)), interval, endTime)
 }
 \arguments{
 \item{x}{ object of class \code{matrix} or \code{data.frame},
