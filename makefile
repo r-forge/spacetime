@@ -1,4 +1,4 @@
-spacetime	= pkg
+spacetime	= pkg/spacetime
 
 R		= R
 
@@ -8,7 +8,7 @@ default:
 	make install
 
 cl:
-	(cd $(spacetime); svn2cl; mv ChangeLog inst/ )
+	(cd $(spacetime); svn2cl; mv ChangeLog spacetime/inst/ )
 
 release:
 	make cl

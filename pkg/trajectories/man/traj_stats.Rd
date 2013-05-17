@@ -1,5 +1,9 @@
 \name{traj}
-\alias{traj}
+\alias{traj_reader}
+\alias{toSTTDF}
+\alias{speed_cal}
+\alias{hourly_stats}
+
 \title{ miscelaneous functions }
 \description{
 read the GEO life trajectories
