@@ -31,7 +31,8 @@ install:
 check:
 	rm -fr spacetime*tar.gz
 	make build
-	_R_CHECK_CRAN_INCOMING_USE_ASPELL_=true $(R) CMD check --as-cran spacetime*gz
+	#_R_CHECK_CRAN_INCOMING_USE_ASPELL_=true $(R) CMD check --as-cran spacetime*gz
+	_R_CHECK_CRAN_INCOMING_USE_ASPELL_=true $(R) CMD check spacetime*gz
 
 fullcheck:
 	TZ="" make check

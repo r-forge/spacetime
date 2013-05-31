@@ -1,6 +1,5 @@
 \name{stInteraction}
 \alias{stInteraction}
-\alias{stinteraction}
 \title{ subtract marginal (spatial and temporal) means from observations }
 \description{subtract marginal (spatial and temporal) means from observations }
 \usage{ 

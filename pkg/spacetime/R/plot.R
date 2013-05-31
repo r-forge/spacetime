@@ -9,6 +9,12 @@ plot.STF = function(x, y, ...) {
 }
 setMethod("plot", signature(x = "STF", y = "missing"), plot.STF)
 
+plot.STFDF = function(x, y, ..., col = ifelse(all.na, "red", "black")) {
+	all.na = apply(x@data, 1, function(x) all(is.na(x)))
+	plot(geometry(x), col = col, ...)
+}
+setMethod("plot", signature(x = "STFDF", y = "missing"), plot.STFDF)
+
 plot.STS = function(x, y, ...) {
 	yy = 1:length(x@sp)
 	xx = index(x@time)
@@ -17,6 +23,12 @@ plot.STS = function(x, y, ...) {
 	plot(time, space, ...)
 }
 setMethod("plot", signature(x = "STS", y = "missing"), plot.STS)
+
+plot.STSDF = function(x, y, ..., col = ifelse(any.na, "red", "black")) {
+	any.na = apply(x@data, 1, function(x) any(is.na(x)))
+	plot(geometry(x), col = col, ...)
+}
+setMethod("plot", signature(x = "STSDF", y = "missing"), plot.STFDF)
 
 plot.STI = function(x, y, ...) {
 	space = 1:length(x@sp)

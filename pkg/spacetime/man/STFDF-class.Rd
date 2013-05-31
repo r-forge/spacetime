@@ -9,6 +9,7 @@
 \alias{coerce,STFDF,xts-method}
 \alias{coerce,STFDF,Spatial-method}
 \alias{plot,STF,missing-method}
+\alias{plot,STFDF,missing-method}
 \alias{na.omit.STFDF}
 \alias{rbind.STFDF}
 
@@ -32,8 +33,10 @@ Objects of this class represent full space/time data with a full grid
    \item{coerce}{STFDF,xts}
    \item{coerce}{STFDF,Spatial}(from) coerces to (wide form) SpatialXxDataFrame,
    where SpatialXx is the spatial class of from@sp
-
-    % \item{plot}{\code{signature(x = "Spatial", y = "missing")}: plot method
+    \item{plot}{\code{signature(x = "STF", y = "missing")}: plots space-time
+	layout }
+    \item{plot}{\code{signature(x = "STFDF", y = "missing")}: plots space-time
+	layout, indicating full missing valued records }
 	% for spatial objects; does nothing but setting up a plotting region choosing
 	% a suitable aspect if not given(see below), colouring the plot background using either a bg= argument or par("bg"), and possibly drawing axes.  }
 	% \item{summary}{\code{signature(object = "Spatial")}: summarize object}

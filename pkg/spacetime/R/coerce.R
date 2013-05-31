@@ -207,6 +207,23 @@ setAs("STTDF", "ltraj",
 	}
 )
 
+setClass("stpp", representation("matrix"))
+setAs("STI", "stpp",
+	function(from) {
+		mat = cbind(coordinates(from@sp), as.numeric(index(from@time)))
+		colnames(mat) = c("x", "y", "t")
+		oldClass(mat) = "stpp"
+		mat
+	}
+)
+setAs("stpp", "STI",
+	function(from) {
+		sp = SpatialPoints(from[,1:2])
+		time = as.POSIXct(from[,3], origin = "1970-01-01", tz = "GMT")
+		STI(sp, time)
+	}
+)
+
 setAs("STT", "data.frame", 
 	function(from)
 		do.call(rbind, lapply(from@traj, function(x) as(x, "data.frame")))
