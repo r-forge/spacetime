@@ -2,10 +2,10 @@ if (!isGeneric("stplot"))
 	setGeneric("stplot", function(obj, ...)
 		standardGeneric("stplot"))
 
-stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
+stplot.STFDF = function(obj, names.attr = trimDates(obj),
 		..., as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE),
 		animate = 0, mode = "xy", scaleX = 0, 
-		auto.key = list(space = key.space), 
+		auto.key = list(space = key.space), main,
 		key.space = "right", type = 'l', do.repeat = TRUE) {
 
 	ind = sp.ID = NULL # keep R CMD check happy in R 2.13 
@@ -13,23 +13,29 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
 	if (missing(at))
 		at = seq(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
 			length.out = ifelse(length(cuts) == 1, cuts + 1, length(cuts)))
+	if (missing(main)) {
+		if (ncol(obj@data) == 1)
+			main = names(obj@data)
+		else
+			main = NULL
+	}
 	if (mode == "ts") { # multiple time series
 		if (!is.null(scales$draw) && scales$draw == FALSE)
 			scales$draw = TRUE
 		if (length(names(obj@data)) > 1) # , stack, add | which.var
 			xyplot(values ~ time | ind, stack(obj), groups = sp.ID, 
 				type = type, auto.key = auto.key, as.table = as.table, 
-				scales = scales, ...)
+				scales = scales, main = main, ...)
 		else
 			xyplot(as.formula(paste(z, "~", "time")), 
 				as.data.frame(obj), groups = sp.ID, 
 				type = type, auto.key = auto.key, as.table = as.table, 
-				scales = scales, ...)
+				scales = scales, main = main, ...)
 	} else if (mode == "tp") { # time series in multiple panels
     	if (ncol(obj@data) == 1)
 			xyplot(as.formula(paste(z, "~ time | sp.ID")), 
 				as.data.frame(obj), type = type, auto.key = auto.key, 
-				as.table = as.table, ...)
+				as.table = as.table, main = main, ...)
 		else {
 			n = names(obj@data)
 			df = as.data.frame(obj)
@@ -38,7 +44,8 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
 			st$sp.ID = df$sp.ID
 			xyplot(as.formula(paste("values ~ time | sp.ID")), 
 				st, type = type, groups = ind,
-				auto.key = auto.key, as.table = as.table, ...)
+				auto.key = auto.key, as.table = as.table, 
+				main = main, ...)
 		}
 	} else if (mode == "xt") { # space-time cross section == Hovmoeller
 		if (missing(scales))
@@ -57,6 +64,7 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
 			f = as.formula(paste(z, "~ sp.ID + time"))
 		dots = list(...)
 		dots$scales = scales
+		dots$main = main
 		dots = append(list(f, as.data.frame(obj), at = at,
 			cuts = cuts, as.table = as.table), dots)
 		do.call(levelplot, dots)
@@ -66,7 +74,7 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
     	form = as.formula(paste(z, "~ time"))
     	sp = geometry(obj@sp)
     	df = data.frame(unstack(as.data.frame(obj), form))
-		x = addAttrToGeom(sp, df, match.ID=FALSE)
+		x = addAttrToGeom(sp, df, match.ID = FALSE)
 		## OR:
 		## x = as(obj, "Spatial")
 		## x@data = data.frame(x@data) # cripples column names
@@ -87,7 +95,7 @@ stplot.STFDF = function(obj, names.attr = as.character(index(obj@time)),
 			args = list(x, names.attr = names.attr,
 				as.table = as.table, at = at, cuts =
 				cuts, auto.key = auto.key, scales =
-				scales, ...)
+				scales, main = main, ...)
 			if (is(sp, "SpatialPoints"))
 				args$key.space = key.space
 			do.call(spplot, args)
@@ -104,15 +112,43 @@ panel.stpointsplot = function(x, y, col, sp.layout, ...) {
 }
 
 stplot.STIDF = function(obj, names.attr = NULL, ..., 
-		as.table = TRUE, by = c("time", "burst", "id"), 
+		as.table = TRUE, scales = list(draw=FALSE), xlab = NULL, ylab = NULL, 
+		type = 'p', number = 6, tcuts, sp.layout = NULL,
+		xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,]) 
+{
+	if (ncol(obj@data) > 1)
+		warning("plotting only the first mark or attribute")
+	if (missing(tcuts)) {
+		tix = index(obj)
+		tcuts = seq(min(tix), max(tix), length.out = number + 1)
+	}
+	timeclass = findInterval(tix, tcuts, TRUE, TRUE)
+	data = obj@data[,1,drop=FALSE]
+	if (number > 1) for (i in 2:number) {
+		data = cbind(data, obj@data[,1])
+		data[timeclass != i, i] = NA
+		if (i == number)
+			data[timeclass != 1, 1] = NA
+	}
+	names(data) = make.names(names(data), TRUE)
+	d = addAttrToGeom(obj@sp, data, FALSE)
+	if (is.null(names.attr))
+		names.attr = trimDates(tcuts[1:number])
+	spplot(d, names.attr = names.attr, as.table = as.table, scales = scales,
+		xlab = xlab, ylab = ylab, sp.layout = sp.layout,
+		xlim = xlim, ylim = ylim, ...)
+}
+
+stplot.STI = function(obj, names.attr = NULL, ..., 
+		as.table = TRUE,
 		scales = list(draw=FALSE), xlab = NULL, ylab = NULL, 
 		type = 'p', number = 6, overlap = 0, asp,
 		col = 1, panel = panel.stpointsplot, sp.layout = NULL,
 		xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,]
 		) {
 	f =  paste(rev(coordnames(obj@sp)), collapse=" ~ ")
-	by = by[1]
-	f = paste(f, "|", by)
+	# further control time here?:
+	f = paste(f, "| time")
 	if (missing(asp))
 		asp = mapasp(obj@sp)
 	scales = sp:::longlat.scales(obj@sp, scales = scales, xlim, ylim)
@@ -171,6 +207,7 @@ setMethod("stplot", signature("STTDF"), stplot.STTDF)
 setMethod("stplot", signature("STFDF"),  stplot.STFDF)
 setMethod("stplot", signature("STSDF"), stplot.STIDF)
 setMethod("stplot", signature("STIDF"), stplot.STIDF)
+setMethod("stplot", signature("STI"), stplot.STI)
 
 stackST = function(x, select, ...) {
 	nc = ncol(x@data)
@@ -182,3 +219,14 @@ stackST = function(x, select, ...) {
 stack.STFDF = stackST
 stack.STSDF = stackST
 stack.STIDF = stackST
+
+trimDates = function(x) {
+	if (is(x, "ST"))
+		x = index(x@time)
+	it = as.character(x)
+	if (identical(grep("-01$", it), 1:length(it))) # all
+		it = sub("-01$", "", it)
+	if (identical(grep("-01$", it), 1:length(it))) # all
+		it = sub("-01$", "", it)
+	it
+}

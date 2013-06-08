@@ -83,6 +83,18 @@ as.STFDF.xts = function(from) {
 }
 setAs("STFDF", "xts", as.STFDF.xts)
 
+as.zoo.STFDF = function(x,...) as.zoo(as(x, "xts"))
+
+setAs("STFDF", "zoo", function(from) as.zoo.STFDF(from))
+
+as.array.STFDF = function(x, ...) {
+	a = array(NA, dim(x))
+	for (i in 1:dim(x)[3])
+		a[,,i] = t(as(x[,,i], "xts"))
+	dimnames(a) = list(names(x@sp), make.names(index(x@time)), names(x@data))
+	a
+}
+
 subs.STFDF <- function(x, i, j, ... , drop = TRUE) {
 	nr = dim(x)[1]
 	nc = dim(x)[2]

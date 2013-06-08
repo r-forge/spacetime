@@ -4,11 +4,11 @@ import(lattice)
 importFrom(stats, aggregate, na.omit, time, start, end)
 importFrom(utils, stack, unstack)
 importFrom(xts, xts, as.xts, timeBased)
-importFrom(zoo, as.zoo, index, na.locf, na.spline, na.approx)
+importFrom(zoo, index, na.locf, na.spline, na.approx, as.zoo)
 importFrom(intervals, interval_overlap, Intervals)
 
 exportClasses(
-	xts,
+	xts, zoo,
 	ST, STF, STFDF,
 	STS, STSDF,
 	STI, STIDF,
@@ -17,9 +17,6 @@ exportClasses(
 )
 
 export(delta,
-	EOF,
-	index,
-	na.locf, na.spline, na.approx,
 	ST,
 	STF, STFDF,
 	STS, STSDF,
@@ -29,7 +26,10 @@ export(delta,
 	stInteraction,
 	read.tgrass,
 	write.tgrass,
-	nbMult
+	EOF,
+	nbMult,
+	# zoo methods:
+	index, na.locf, na.spline, na.approx, as.zoo #as.zoo.STFDF
 )
 
 exportMethods(
@@ -38,6 +38,9 @@ exportMethods(
 	stplot
 )
 
+S3method(aggregate, ST)
+S3method(aggregate, STFDF)
+S3method(as.array, STFDF)
 S3method(as.data.frame, STF)
 S3method(as.data.frame, STS)
 S3method(as.data.frame, STI)
@@ -45,7 +48,6 @@ S3method(as.data.frame, STFDF)
 S3method(as.data.frame, STSDF)
 S3method(as.data.frame, STIDF)
 S3method(as.xts, STIDF)
-S3method(aggregate, ST)
 S3method(cbind, ST)
 S3method(dim, ST)
 S3method(dim, STF)
@@ -89,3 +91,4 @@ S3method(time, ST)
 S3method(na.locf, STFDF)
 S3method(na.spline, STFDF)
 S3method(na.approx, STFDF)
+S3method(as.zoo, STFDF)

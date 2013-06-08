@@ -5,6 +5,7 @@
 \alias{stplot,STFDF-method} 
 \alias{stplot,STSDF-method} 
 \alias{stplot,STIDF-method} 
+\alias{stplot,STI-method} 
 \alias{stplot,STTDF-method} 
 \alias{stplot,RasterStackBrick-method} 
 \alias{stack.STFDF} 
@@ -15,27 +16,29 @@
 \section{Methods}{
   \describe{
     \item{stplot}{\code{signature(x = "STFDF")}: plots object of class STFDF}
-    \item{stplot}{\code{signature(x = "STSDF")}: plots object of class STFDF}
-    \item{stplot}{\code{signature(x = "STIDF")}: plots object of class STFDF}
+    \item{stplot}{\code{signature(x = "STSDF")}: plots object of class STSDF}
+    \item{stplot}{\code{signature(x = "STI")}: plots object of class STI}
+    \item{stplot}{\code{signature(x = "STIDF")}: plots object of class STIDF}
+    \item{stplot}{\code{signature(x = "STT")}: plots object of class STT}
+    \item{stplot}{\code{signature(x = "STTDF")}: plots object of class STTDF}
   }
 }
 \usage{ 
 stplot(obj, ...)
-stplot.STFDF(obj, names.attr = as.character(index(obj@time)), ..., 
+stplot.STFDF(obj, names.attr = trimDates(obj), ..., 
 	as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE), 
 	animate = 0, mode = "xy", scaleX = 0, auto.key = list(space = key.space), 
-	key.space = "right", type = "l", do.repeat = TRUE)
-stplot.STIDF(obj, names.attr = NULL, ..., as.table = TRUE, by =
-	c("time", "burst", "id"), scales = list(draw = FALSE),
-	xlab = NULL, ylab = NULL, type = "p", number = 6,
-	overlap = 0, asp, col = 1, panel = panel.stpointsplot,
-	sp.layout = NULL, xlim = bbox(obj@sp)[1, ], ylim =
-	bbox(obj@sp)[2, ])
+	main, key.space = "right", type = "l", do.repeat = TRUE)
+stplot.STIDF(obj, names.attr = NULL, ..., as.table = TRUE,
+	scales = list(draw = FALSE), xlab = NULL, ylab = NULL,
+	type = "p", number = 6, tcuts, sp.layout = NULL, xlim =
+	bbox(obj@sp)[1, ], ylim = bbox(obj@sp)[2, ])
 
 }
 \arguments{
 \item{obj}{ object of a class deriving from \code{ST}}
-\item{names.attr}{ names that will be used in the strip }
+\item{names.attr}{ names that will be used in the strip; trimDates(obj)
+trims "-01" ending(s) from printed Dates }
 \item{as.table}{ logical; if TRUE, time will increas from top to bottom;
 if FALSE, time will increase from bottom to top }
 \item{at}{ values at which colours will change; see \link[lattice]{levelplot}}
@@ -52,23 +55,19 @@ plotted in multiple panels, one panel per location. }
 whether the index of the spatial location is shown (0), the x coordinate (1)
 or the y coordinate (2). }
 \item{auto.key}{see the \code{auto.key} argument in \link[lattice]{xyplot}}
+\item{main}{character; plot title, use \code{NULL} to omit title}
 \item{key.space}{character; see \link[lattice]{xyplot}}
-\item{by}{ conditioning variable(s); in case \code{time} is conditioning
-variable, it will be classified using \link{equal.count}, using parameters
-\code{overlap} and \code{number}}
 \item{scales}{ scales drawing; see \code{scales} argument of \link[lattice]{xyplot}}
 \item{xlab}{ x-axis label}
 \item{ylab}{ y-axis label }
 \item{type}{ character; use 'l' for lines, 'p' for symbols,
 'b' for both lines and symbols }
 \item{do.repeat}{ logical; repeat the animation in an infinite loop? }
-\item{number}{ see argument \code{by}}
-\item{overlap}{ see argument \code{by} }
-\item{asp}{ aspect ratio of plot }
-\item{col}{ color for symbols }
-\item{panel}{ panel function }
+\item{number}{ number of time intervals, equally spaced }
+\item{tcuts}{time cuts in units of \code{index(obj)}; this overrides \code{number}}
 \item{sp.layout}{list or NULL; see \link[sp]{spplot}}
-\item{...}{ arguments passed on to \link[sp]{spplot} in case of stplot.STFDF,
+\item{...}{ arguments passed on to \link[sp]{spplot} in case of 
+plotting objects of class \code{STFDF} or \code{STIDF},
 or to \link[lattice]{xyplot} in case of stplot.STIDF}
 \item{xlim}{numeric, x range}
 \item{ylim}{numeric, y range}

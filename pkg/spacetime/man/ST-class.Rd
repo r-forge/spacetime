@@ -2,6 +2,7 @@
 \docType{class}
 \alias{ST-class}
 \alias{xts-class}
+\alias{zoo-class}
 \alias{ST}
 \alias{dim.ST}
 \alias{[[<-,ST,ANY,missing-method}

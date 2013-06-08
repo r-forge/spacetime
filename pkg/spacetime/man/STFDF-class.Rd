@@ -12,6 +12,8 @@
 \alias{plot,STFDF,missing-method}
 \alias{na.omit.STFDF}
 \alias{rbind.STFDF}
+\alias{as.zoo}
+\alias{as.zoo.STFDF}
 
 \title{Class "STFDF"}
 \description{ A class for spatio-temporal data with full space-time grid; for
