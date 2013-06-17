@@ -107,12 +107,12 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		j = as.vector(t[,1])
 	}
 	
-	if(is.numeric(i))
+	if (is.numeric(i) && is.numeric(j)) {
 		i = 1:nrow(x@time) %in% i
-	if(is.numeric(j))
 		j = 1:nrow(x@time) %in% j
-
-	i = i & j
+	}
+	if (is.logical(i) && is.logical(j))
+		i = i & j
 
 	x@sp = x@sp[i,]
 	x@time = x@time[i,]

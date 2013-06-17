@@ -25,11 +25,11 @@
 }
 \usage{ 
 stplot(obj, ...)
-stplot.STFDF(obj, names.attr = trimDates(obj), ..., 
+stplot.STFDF(obj, names.attr = trimDates(obj), ...,
 	as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE), 
 	animate = 0, mode = "xy", scaleX = 0, auto.key = list(space = key.space), 
 	main, key.space = "right", type = "l", do.repeat = TRUE)
-stplot.STIDF(obj, names.attr = NULL, ..., as.table = TRUE,
+stplot.STIDF(obj, ..., names.attr = NULL, as.table = TRUE,
 	scales = list(draw = FALSE), xlab = NULL, ylab = NULL,
 	type = "p", number = 6, tcuts, sp.layout = NULL, xlim =
 	bbox(obj@sp)[1, ], ylim = bbox(obj@sp)[2, ])

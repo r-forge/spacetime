@@ -2,8 +2,8 @@ if (!isGeneric("stplot"))
 	setGeneric("stplot", function(obj, ...)
 		standardGeneric("stplot"))
 
-stplot.STFDF = function(obj, names.attr = trimDates(obj),
-		..., as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE),
+stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
+		as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE),
 		animate = 0, mode = "xy", scaleX = 0, 
 		auto.key = list(space = key.space), main,
 		key.space = "right", type = 'l', do.repeat = TRUE) {
@@ -111,18 +111,20 @@ panel.stpointsplot = function(x, y, col, sp.layout, ...) {
 	panel.xyplot(x, y, col = col, ...)
 }
 
-stplot.STIDF = function(obj, names.attr = NULL, ..., 
+stplot.STIDF = function(obj, ..., names.attr = NULL,
 		as.table = TRUE, scales = list(draw=FALSE), xlab = NULL, ylab = NULL, 
 		type = 'p', number = 6, tcuts, sp.layout = NULL,
 		xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,]) 
 {
 	if (ncol(obj@data) > 1)
 		warning("plotting only the first mark or attribute")
-	if (missing(tcuts)) {
-		tix = index(obj)
+	tix = index(obj)
+	if (missing(tcuts))
 		tcuts = seq(min(tix), max(tix), length.out = number + 1)
-	}
-	timeclass = findInterval(tix, tcuts, TRUE, TRUE)
+	else
+		number = length(tcuts)
+	#timeclass = findInterval(tix, tcuts, TRUE, TRUE)
+	timeclass = findInterval(tix, tcuts, FALSE, FALSE)
 	data = obj@data[,1,drop=FALSE]
 	if (number > 1) for (i in 2:number) {
 		data = cbind(data, obj@data[,1])
@@ -134,8 +136,8 @@ stplot.STIDF = function(obj, names.attr = NULL, ...,
 	d = addAttrToGeom(obj@sp, data, FALSE)
 	if (is.null(names.attr))
 		names.attr = trimDates(tcuts[1:number])
-	spplot(d, names.attr = names.attr, as.table = as.table, scales = scales,
-		xlab = xlab, ylab = ylab, sp.layout = sp.layout,
+	spplot(d, 1:number, names.attr = names.attr, as.table = as.table, 
+		scales = scales, xlab = xlab, ylab = ylab, sp.layout = sp.layout,
 		xlim = xlim, ylim = ylim, ...)
 }
 
