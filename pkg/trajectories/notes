@@ -1,0 +1,17 @@
+Mon Jun 17 16:30:08 CEST 2013
+
+TODO:
++ spatial selection: can split a trip into two or more trips
++ use spDists() to compute distances
++ point Jinlong to intro to S4 classes
++ look at spacetime/R/coerce.R: there the STTDF coercion function are defined
++ look at spacetime/R/STTDF-methods.R: there the STTDF creation and methods
+  are defined.
++ understand how do.call and lapply work, e.g. in STTDF-methods.R
+
+learn S4 from:
+[16:54:19] Edzer Pebesma: https://github.com/hadley/devtools/wiki
+
+commit code to the trajectory package on:
+[16:56:16] Edzer Pebesma: https://r-forge.r-project.org/projects/spacetime/
+
