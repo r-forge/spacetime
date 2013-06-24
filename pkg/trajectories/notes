@@ -29,7 +29,7 @@ Status:
 - First (unsuccessful) take on developing spatial and temporal selection operations. These operations will be revised later to make use of classes and methods that currently available in spacetime and sp packages.
 
 - Set up subversion control in RStudio and start to commit
-(I started to use MAC from this week. The subversion is on my MAC is working, but not on my PC. I will figure out how to set up subversion control on PC later next week).
+(I started to use Mac from this week. The subversion on my Mac is working, but not on my PC. I will figure out how to set up subversion control on PC later next week).
 
 - Studied the overlay and aggregate vignettes from sp package (see links below). Learned the operations of space, time, and space-time overlay/aggreation realized by over() and aggregate() methods.
 http://cran.r-project.org/web/packages/sp/vignettes/over.pdf
