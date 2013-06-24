@@ -19,5 +19,36 @@ commit code to the trajectory package on:
 
 + next telco Jun 25, 16:00 CET
 
+
+
 Jun. 24, 2013
 Weekly Report 1:
+
+Status:
+
+- First (unsuccessful) take on developing spatial and temporal selection operations. These operations will be revised later to make use of classes and methods that currently available in spacetime and sp packages.
+
+- Set up subversion control in RStudio and start to commit
+(I started to use MAC from this week. The subversion is on my MAC is working, but not on my PC. I will figure out how to set up subversion control on PC later next week).
+
+- Studied the overlay and aggregate vignettes from sp package (see links below). Learned the operations of space, time, and space-time overlay/aggreation realized by over() and aggregate() methods.
+http://cran.r-project.org/web/packages/sp/vignettes/over.pdf
+http://cran.r-project.org/web/packages/spacetime/vignettes/sto.pdf
+
+- Studied section "SoftwareSystems", "The S3 object system", and "The S4 object system" from
+Advanced R development: making reusable code (link: https://github.com/hadley/devtools/wiki). Learned the major differences between S3 and S4 objects (formal class definitions & multiple dispatch) and how to create/modify S4 objects.
+
+- Learned how do.call and lapply works from spacetime/R/STTDF-methods.R
+
+- Learned how STTDF objects are coerced from ltraj objects from spacetime/R/coerce.R
+
+
+Problems:
+
+- TBA
+
+
+Task for next week:
+
+- Set up subversion on control on my PC;
+- TBA
