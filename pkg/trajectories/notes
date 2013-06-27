@@ -45,10 +45,12 @@ Advanced R development: making reusable code (link: https://github.com/hadley/de
 
 Problems:
 
-- TBA
+- Need to et more familiar with concepts and terms in R package development
+- Understand ltraj objects
 
 
 Task for next week:
 
 - Set up subversion on control on my PC;
-- TBA
+- Selective reading: http://cran.us.r-project.org/doc/manuals/r-devel/R-exts.pdf
+- TBA after meeting with Pebesma on Tuesday

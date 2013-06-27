@@ -26,6 +26,7 @@ for (d in dirs) {
 	setTxtProgressBar(pb, j)
 	j = j+1
 }
+
 object.size(lst)
 stt = STT(lst)
 rm(lst)
