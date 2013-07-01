@@ -54,3 +54,32 @@ Task for next week:
 - Set up subversion on control on my PC;
 - Selective reading: http://cran.us.r-project.org/doc/manuals/r-devel/R-exts.pdf
 - TBA after meeting with Pebesma on Tuesday
+
+
+Jun. 30, 2013
+Weekly Report 2:
+
+Notes:
+
+ - STT: a list object with each element as a burst.
+ - STTDF
+ - from Edzar:
+the function in sp that computes distances between consecutive points is
+called LineLength. It's implemented in C, and can do both longlat and
+Euclidian (e.g., UTM) coordinates:
+
+> ?LineLength
+> x = runif(10)
+> y = runif(10)
+> LineLength(cbind(x,y))
+[1] 6.235286
+> LineLength(cbind(x,y),sum=FALSE)
+[1] 0.5643880 0.5837999 0.6260173 0.4729516 0.3879915 0.9119911 0.8066018
+[8] 1.0431687 0.8383759
+> LineLength(cbind(x,y),longlat=TRUE,sum=FALSE)
+[1]  62.77293  64.92568  69.66763  52.52765  43.18699 101.19516  89.05212
+[8] 115.58249  92.55943
+
+To-do:
+
+- read.R
