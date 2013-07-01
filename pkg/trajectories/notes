@@ -21,25 +21,22 @@ commit code to the trajectory package on:
 
 
 
+=======================
 Jun. 24, 2013
 Weekly Report 1:
+=======================
 
 Status:
 
 - First (unsuccessful) take on developing spatial and temporal selection operations. These operations will be revised later to make use of classes and methods that currently available in spacetime and sp packages.
-
 - Set up subversion control in RStudio and start to commit
 (I started to use Mac from this week. The subversion on my Mac is working, but not on my PC. I will figure out how to set up subversion control on PC later next week).
-
 - Studied the overlay and aggregate vignettes from sp package (see links below). Learned the operations of space, time, and space-time overlay/aggreation realized by over() and aggregate() methods.
 http://cran.r-project.org/web/packages/sp/vignettes/over.pdf
 http://cran.r-project.org/web/packages/spacetime/vignettes/sto.pdf
-
 - Studied section "SoftwareSystems", "The S3 object system", and "The S4 object system" from
 Advanced R development: making reusable code (link: https://github.com/hadley/devtools/wiki). Learned the major differences between S3 and S4 objects (formal class definitions & multiple dispatch) and how to create/modify S4 objects.
-
 - Learned how do.call and lapply works from spacetime/R/STTDF-methods.R
-
 - Learned how STTDF objects are coerced from ltraj objects from spacetime/R/coerce.R
 
 
@@ -53,21 +50,25 @@ Task for next week:
 
 - Set up subversion on control on my PC;
 - Selective reading: http://cran.us.r-project.org/doc/manuals/r-devel/R-exts.pdf
-- TBA after meeting with Pebesma on Tuesday
+- Study read.R in the demo from trajectories
+- First take on selection operations based on "["
+- Write methods that compute speed, turning angle, line length based on read.R
 
 
+
+=======================
 Jun. 30, 2013
 Weekly Report 2:
+=======================
 
 Notes:
 
- - STT: a list object with each element as a burst.
- - STTDF
- - from Edzar:
+- STT: a list object with each element as a burst.
+- STT -> STTDF
+- from Edzar:
 the function in sp that computes distances between consecutive points is
 called LineLength. It's implemented in C, and can do both longlat and
 Euclidian (e.g., UTM) coordinates:
-
 > ?LineLength
 > x = runif(10)
 > y = runif(10)
@@ -79,7 +80,28 @@ Euclidian (e.g., UTM) coordinates:
 > LineLength(cbind(x,y),longlat=TRUE,sum=FALSE)
 [1]  62.77293  64.92568  69.66763  52.52765  43.18699 101.19516  89.05212
 [8] 115.58249  92.55943
+- 
+
 
 To-do:
 
-- read.R
+- (DONE) learn read.R
+- write sttdf_computation.R (spacetime/pkg/trajectories/demo/)
+1) (DONE) calculate displacement using LineLength() from sp package
+2) (DONE) calculate time passed between consecutive points
+3) (DONE) caluclate speed (Unit: m/s)
+4) calculate relative angle change between consecutive points
+5) calculate absolute angle change between consecutive points
+6) (NOT WORKING) (naive) transporation mode detection
+7) (NOT WORKING) calculation of trajectory properties (e.g., elevation change)??
+- Selective reading: http://cran.us.r-project.org/doc/manuals/r-devel/R-exts.pdf
+- First take on STTDF_selection.R based on "[" (spacetime/pkg/trajectories/demo/)
+
+
+Problem:
+(Some questions might not be clear without context. Please let me know if you need any clarification)
+
+- If time interval is 0 between two consecutive points - what to do? Delete that piont or keep that but set dist, timeLapsed, speed, etc to NA?
+- How to make connections between points (i.e., rows) from sttdf@data and STIs from sttdf@traj?
+- Where to store the attributes of a burst (e.g., total length, total time, average speed)?
+- Whether to make use of SpatialLines class and how (see examples in STTDF_selection.R)
