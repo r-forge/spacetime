@@ -105,3 +105,8 @@ Problem:
 - How to make connections between points (i.e., rows) from sttdf@data and STIs from sttdf@traj?
 - Where to store the attributes of a burst (e.g., total length, total time, average speed)?
 - Whether to make use of SpatialLines class and how (see examples in STTDF_selection.R)
+
+
+Tasks for next week:
+
+- Catch up the schedule with more progress.
