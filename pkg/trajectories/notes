@@ -83,17 +83,17 @@ Euclidian (e.g., UTM) coordinates:
 - 
 
 
-To-do:
+Tasks:
 
-- (DONE) learn read.R
+- learn read.R from spacetime package
 - write sttdf_computation.R (spacetime/pkg/trajectories/demo/)
-1) (DONE) calculate displacement using LineLength() from sp package
-2) (DONE) calculate time passed between consecutive points
-3) (DONE) caluclate speed (Unit: m/s)
+1) calculate displacement using LineLength() from sp package
+2) calculate time passed between consecutive points
+3) caluclate speed (Unit: m/s)
 4) calculate relative angle change between consecutive points
 5) calculate absolute angle change between consecutive points
-6) (NOT WORKING) (naive) transporation mode detection
-7) (NOT WORKING) calculation of trajectory properties (e.g., elevation change)??
+6) (naive) transporation mode detection
+7) calculation of trajectory properties (e.g., elevation change)??
 - Selective reading: http://cran.us.r-project.org/doc/manuals/r-devel/R-exts.pdf
 - First take on STTDF_selection.R based on "[" (spacetime/pkg/trajectories/demo/)
 
@@ -101,7 +101,7 @@ To-do:
 Problem:
 (Some questions might not be clear without context. Please let me know if you need any clarification)
 
-- If time interval is 0 between two consecutive points - what to do? Delete that piont or keep that but set dist, timeLapsed, speed, etc to NA?
+- How to handle a GPS point record If time interval is 0 between two consecutive points? Delete that piont or keep that but set dist, timeLapsed, speed, etc to NA?
 - How to make connections between points (i.e., rows) from sttdf@data and STIs from sttdf@traj?
 - Where to store the attributes of a burst (e.g., total length, total time, average speed)?
 - Whether to make use of SpatialLines class and how (see examples in STTDF_selection.R)
@@ -110,3 +110,4 @@ Problem:
 Tasks for next week:
 
 - Catch up the schedule with more progress.
+- TBA after meeting with Dr. Pebesma on Tuesday
