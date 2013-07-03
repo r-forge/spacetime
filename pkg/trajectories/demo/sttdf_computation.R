@@ -55,6 +55,11 @@ for( a in sttdf@traj){
 length(sttdf@traj[[1]]@sp)
 
 ##Game started
+
+
+
+
+##Testing turning angle computation
 library("maptools")
 
 name <- c("Mecca", "Anchorage", "Washington")
@@ -70,6 +75,17 @@ r2 <- gzAzimuth(x[2:3,], x[1,], type="abdali")
 r2
 all.equal(r2, crib)
 trackAzimuth(x)
+
+df <- data.frame(sttdf@traj[[1]]@sp)
+df <- as.matrix(df)
+
+point0 <- df[1,]
+gzAzimuth(df, point0)
+trackAzimuth(df)
+
+tc1=mod(atan2(sin(lon2-lon1)*cos(lat2),
+              cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(lon2-lon1)),
+        2*pi)
 
 
 
