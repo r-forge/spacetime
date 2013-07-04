@@ -104,10 +104,32 @@ Problem:
 - How to handle a GPS point record If time interval is 0 between two consecutive points? Delete that piont or keep that but set dist, timeLapsed, speed, etc to NA?
 - How to make connections between points (i.e., rows) from sttdf@data and STIs from sttdf@traj?
 - Where to store the attributes of a burst (e.g., total length, total time, average speed)?
-- Whether to make use of SpatialLines class and how (see examples in STTDF_selection.R)
+- Whether to make use of SpatialLines class and how (see examples in STTDF_selection.R)?
 
 
 Tasks for next week:
 
 - Catch up the schedule with more progress.
 - TBA after meeting with Dr. Pebesma on Tuesday
+
+
+
+=======================
+July. 8, 2013
+Weekly Report 2:
+=======================
+
+Notes:
+- Write packages/functions!!
+- sttdf@data --> list
+- burst id in STI
+
+
+To-do:
+- Put STTDF_computation.R into a function
+- Start to write documentation
+- Write a function - over() for trajectories package
+select all rajs in an area - SpatialLine objects
+select all trajs between 2008 - 2009
+- Verification of the data (space, time)
+- Selection functions that fliter data based on, for example, certain time interval
