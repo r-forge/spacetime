@@ -47,47 +47,18 @@ object.size(sttdf)
 
 
 
+
 ##TO BE DELETED
+##Count the total number of points
 count <- 0
 for( a in sttdf@traj){
   count <- count + length(a@sp)
 }
-length(sttdf@traj[[1]]@sp)
-
-##Game started
+count
 
 
-
-
-##Testing turning angle computation
+##
 library("maptools")
-
-name <- c("Mecca", "Anchorage", "Washington")
-long <- c(39.823333, -149.883333, -77.0166667)
-lat <- c(21.423333, 61.2166667, 38.9)
-x <- cbind(long, lat)
-row.names(x) <- name
-crib <- c(-9.098363, 56.575960)
-r1 <- gzAzimuth(x[2:3,], x[1,])
-r1
-all.equal(r1, crib)
-r2 <- gzAzimuth(x[2:3,], x[1,], type="abdali")
-r2
-all.equal(r2, crib)
-trackAzimuth(x)
-
-df <- data.frame(sttdf@traj[[1]]@sp)
-df <- as.matrix(df)
-
-point0 <- df[1,]
-gzAzimuth(df, point0)
-trackAzimuth(df)
-
-tc1=mod(atan2(sin(lon2-lon1)*cos(lat2),
-              cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(lon2-lon1)),
-        2*pi)
-
-
 
 ##Calcualte the distance between consecutive points for each burst (Unit: km)
 all_dist <- lapply(sttdf@traj, function(x) 
@@ -95,9 +66,10 @@ all_dist <- lapply(sttdf@traj, function(x)
 )
 
 
-##Store all distance between consecutive points to the data slot of each burst
+##(NOT WORKING)Store all distance between consecutive points to the data slot of each burst
+##How to create the data slots for each STI object?
 for(i in 1: length(sttdf@traj)){
-  sttdf@traj[[i]]@data <- data.frame(all_dist[[i]])
+  sttdf@data <- data.frame(all_dist[[i]])
 }
 
 
@@ -111,7 +83,7 @@ for(d in all_dist){
 
 
 ##Add distance to data slot of the STTDF object
-sttdf@data$dist <- dist
+sttdf@data$dist <- distance
 
 
 ##Calculate the time lapsed between consecutive points for each burst (Unit: seconds)
@@ -123,14 +95,36 @@ all_timeLapsed <- lapply(sttdf@traj, function(x){
 }
 )
 
+
 ##Store all time lapsed between consecutive points from a STTDF boject in a single vector - timeLapsed     
 timeLapsed <- c()
 for(t in all_timeLapsed){
   timeLapsed <- append(timeLapsed, t)
 }
 
+
 ##Add time lapsed to data slot of the STTDF object
 sttdf@data$timeLapsed <- timeLapsed
+
+
+##Calculate the absolute angle between consecutive points for each burst
+absAngle <- lapply(sttdf@traj, function(x){
+  points <- as.matrix(data.frame(x@sp))
+  startingPoint <- points[1, ]
+  return(gzAzimuth(points, startingPoint))
+}
+)
+
+
+##Store all absolute turning angles between consecutive points from a STTDF boject in a single vector - all_absAngle     
+all_absAngle <- c()
+for(angle in absAngle){
+  all_absAngle <- append(all_absAngle, angle)
+}
+
+
+##Add absolute turning angle to data slot of the STTDF object
+sttdf@data$absAngle <- all_absAngle
 
 
 ##Calucate speed and stored as a column in data slot of the STTDF object (Unit: m/s)
@@ -143,11 +137,10 @@ ele1 <- sttdf@data$ele[1: length(sttdf@data$ele) - 1]
 ele2 <- sttdf@data$ele[2: length(sttdf@data$ele)]
 eleChange <- c(NA, ele2 - ele1)
 sttdf@data$eleChange <- eleChange
-
-head(sttdf@data)
-
+#head(sttdf@data)
 min(sttdf@data$eleChange, na.rm = TRUE)
 max(sttdf@data$eleChange, na.rm = TRUE)
+
 
 ## (NOT WORKING) (naive) transportaiton mode detection based on speed
 if(FALSE){
@@ -176,10 +169,3 @@ apply(data.frame(sttdf@data$speed[1:10]), 1, function(x){
 }
 )
 }
-    
-    
-head(sttdf@data)
-sttdf@data[905: 1005, ]
-sttdf@traj[[1]]@data
-
-sttdf@sp
