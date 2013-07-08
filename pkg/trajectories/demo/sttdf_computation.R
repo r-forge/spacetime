@@ -1,7 +1,8 @@
 ##Line 1 to Line 50 were copied from read.R
 
 library(spacetime)
-#sel = 1:2
+
+
 sel = TRUE
 lst = list()
 i = j = 1
@@ -19,6 +20,10 @@ for (d in dirs) {
 		tab$time = as.POSIXct(paste(tab[,6],tab[,7]))
 		tab[tab[,4] == -777, 4] = NA # altitude 
 		tab = tab[,-c(3,5,6,7)]
+    ##Add id and burst
+    tab$id = rep(d, nrow(tab))
+    tab$burst = rep(f, nrow(tab))
+    
 		names(tab) = c("lat", "long", "elev", "time")
 		if (all(tab$lat > -90 & tab$lat < 90 & tab$long < 360 
 				& tab$long > -180)) {
@@ -169,3 +174,5 @@ apply(data.frame(sttdf@data$speed[1:10]), 1, function(x){
 }
 )
 }
+
+attr(sttdf@traj[[1]], "ID")

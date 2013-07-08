@@ -62,7 +62,6 @@ Weekly Report 2:
 =======================
 
 Notes:
-
 - STT: a list object with each element as a burst.
 - STT -> STTDF
 - from Edzar:
@@ -84,7 +83,6 @@ Euclidian (e.g., UTM) coordinates:
 
 
 Tasks:
-
 - learn read.R from spacetime package
 - write sttdf_computation.R (spacetime/pkg/trajectories/demo/)
 1) calculate displacement using LineLength() from sp package
@@ -108,15 +106,13 @@ Problem:
 
 
 Tasks for next week:
-
 - Catch up the schedule with more progress.
-- TBA after meeting with Dr. Pebesma on Tuesday
 
 
 
 =======================
 July. 8, 2013
-Weekly Report 2:
+Weekly Report 3:
 =======================
 
 Notes:
@@ -126,10 +122,23 @@ Notes:
 
 
 To-do:
-- Put STTDF_computation.R into a function
+- Put STTDF_computation.R into a function STItoSTTDF
 - Start to write documentation
 - Write a function - over() for trajectories package
-select all rajs in an area - SpatialLine objects
+select all trajs in an area - SpatialLine objects
 select all trajs between 2008 - 2009
 - Verification of the data (space, time)
 - Selection functions that fliter data based on, for example, certain time interval
+
+Task finished:
+- Put STTDF_computation.R into a method at trajectries/demo/STItoSTTDF.R
+- Modified read.R as trajectories/demo/geolife_reader.R with id and trip added (if id or trip is missing, dummy id or trip will be added)
+- Calculated the elevation change between consecutive GPS points in trajectories/demo/STItoSTTDF.R (potentially can be applied to other properties of trajectories data)
+- Calculated the abosoluate angles between consecutive GPS points using gzAzimuth() from maptools package (see STItoSTTDF.R)
+- Start writing documentation for methods developed
+
+Problem:
+- What is STbox?
+- How to avoid using for loop in R (e.g., Line ##72 in STItoSTTDF.R)?
+- What to expect about the input format of trajectory data? (Currently work with GeoLife dataset, but in general should we assume data comes in format of dataframe(s) with each column as a property?)
+
