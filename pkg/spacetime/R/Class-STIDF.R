@@ -1,5 +1,5 @@
 setClass("STI", # space-time irregular
-  representation("ST"),
+  contains = "ST",
   validity = function(object) {
     stopifnot(nrow(object@time) == length(object@sp))
     return(TRUE)
@@ -7,7 +7,8 @@ setClass("STI", # space-time irregular
 )
 
 setClass("STIDF", # space-time irregular data frame
-  representation("STI", data = "data.frame"),
+  contains = "STI", 
+  slots = c(data = "data.frame"),
   validity = function(object) {
     n = nrow(object@data)
     stopifnot(n == length(object@sp))

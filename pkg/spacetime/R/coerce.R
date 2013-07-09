@@ -173,7 +173,8 @@ as.STI.Spatial = function(from)
 	addAttrToGeom(geometry(from@sp), data.frame(time = index(from@time)), match.ID = FALSE)
 setAs("STI", "Spatial", as.STI.Spatial)
 
-setClass("ltraj", representation("list"))
+#setClass("ltraj", representation("list"))
+setOldClass("ltraj")
 
 setAs("ltraj", "STTDF", 
 	function(from) {
@@ -207,7 +208,9 @@ setAs("STTDF", "ltraj",
 	}
 )
 
-setClass("stpp", representation("matrix"))
+#setClass("stpp", representation("matrix"))
+setOldClass("stpp", representation("matrix"))
+
 setAs("STI", "stpp",
 	function(from) {
 		mat = cbind(coordinates(from@sp), as.numeric(index(from@time)))

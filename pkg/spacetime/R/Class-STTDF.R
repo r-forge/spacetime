@@ -1,5 +1,6 @@
 setClass("STT",  # space-time trajectory/ies without data values
-  representation("ST", traj = "list"),
+  contains = "ST", 
+  slots = c(traj = "list"),
   validity = function(object) {
     stopifnot(length(object@traj) > 0)
 	stopifnot(length(object@sp) == 2)
@@ -11,7 +12,8 @@ setClass("STT",  # space-time trajectory/ies without data values
 )
 
 setClass("STTDF",  # space-time trajectory/ies with data values
-  representation("STT", data = "data.frame"),
+  contains = "STT", 
+  slots = c(data = "data.frame"),
   validity = function(object) {
 	stopifnot(sum(sapply(object@traj, length)) == nrow(object@data))
     .checkAttrIsUnique(object@sp, object@time, object@data)
