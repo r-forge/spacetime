@@ -48,10 +48,10 @@ Jinlong Yang - jinlong at psu.edu
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-###NOT DIRECTLY EXCUTABLE - NEED TO CREATE A TOY DATASET
+###NOT DIRECTLY EXCUTABLE - NEED TO CREATE A TOY DATASET###
 sttdf <- STItoSTTDF(list = lst, elev = elev)
 head(sttdf@data)
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}
+
 \keyword{GPS}
 \keyword{spacetime}

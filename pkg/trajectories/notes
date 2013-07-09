@@ -158,10 +158,16 @@ Weekly Report 4:
 =======================
 
 Notes:
-
+- Demo scripts should be executable independently
+- 
 
 To-do:
-
+- Move methods to R directory (instead of Demo directory)
+- Learn how to build/install/check package (!!!HIGHEST PRIORITY!!!)
+- Figure out why keyword section are missing
+- Export STItoSTTDF to trajectories/NAMESPACE
+- Move the test section to demo directory
+- Put all testing in the example code in the R documentation file
 
 
 

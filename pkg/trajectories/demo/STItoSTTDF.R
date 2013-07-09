@@ -92,11 +92,19 @@ STItoSTTDF <- function(list = lst, id = NA, trip = NA, elev = elev){
   ##How to avoid using for loop here?
   ##How to speed this process up?
   for(i in 1: length(elevChange)){
-    if(df1[i, 1] != df2[i, 1]){
+    if(df1[i, 2] != df2[i, 2]){
       elevChange[i] = NA
     }
   }
   elevChange <- c(NA, elevChange)
+  
+  
+  ##Potential solution
+  ##Return shorter from diff()
+  elevChange = diff(sttdf@data[,3])
+  elevChange = diff(sttdf@data[,3])
+  tripChange = diff(as.numeric(sttdf@data[,2])) != 0
+  elevChange[tripChange] = NA
 
   ##Add elevation change to data slot of the STTDF object
   sttdf@data$elevChange <- elevChange

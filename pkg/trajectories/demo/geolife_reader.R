@@ -1,3 +1,5 @@
+library(spacetime)
+
 ##Modified after trajectories/demo/read.R with id and trip added
 
 ##Set path here
@@ -26,6 +28,7 @@ for (d in dirs) {
     if (all(tab$lat > -90 & tab$lat < 90 & tab$long < 360 
             & tab$long > -180)) {
       lst[[i]] = STI(SpatialPoints(tab[,2:1], crs), tab$time)
+      attr(lst[[i]], "id") <- d
       elev = c(elev, tab$elev)
       id = c(id, rep(d, nrow(tab)))
       a_trip = substr(f, 74, 86)
