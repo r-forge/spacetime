@@ -80,8 +80,8 @@ STItoSTTDF <- function(list = lst, id = NA, trip = NA, elev = elev){
   ##Add absolute turning angle to data slot of the STTDF object
   sttdf@data$absAngle <- all_absAngle
   
-  ##Calucate speed and stored as a column in data slot of the STTDF object (Unit: m/s)
-  sttdf@data$speed <- sttdf@data$dist * 1000 / sttdf@data$timeLapsed
+  ##Calucate speed and stored as a column in data slot of the STTDF object (Unit: km/h)
+  sttdf@data$speed <- sttdf@data$dist / sttdf@data$timeLapsed * 3600
   
   ##Calculate elevation changes between two consecutive points and store it in sttdf@data as a column
   df1 <- sttdf@data[1: nrow(sttdf@data) - 1, 2:3]
