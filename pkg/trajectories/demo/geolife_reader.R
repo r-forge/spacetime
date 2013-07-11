@@ -2,6 +2,7 @@ library(spacetime)
 
 ##Modified after trajectories/demo/read.R with id and trip added
 
+##Need to be replaced by 
 ##Set path here
 path <- "/Users/jinlong/Documents/R/Geolife Trajectories 1.3/Data/"
 

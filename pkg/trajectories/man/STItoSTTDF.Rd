@@ -53,5 +53,9 @@ sttdf <- STItoSTTDF(list = lst, elev = elev)
 head(sttdf@data)
 }
 
-\keyword{GPS}
-\keyword{spacetime}
+\keyword{
+GPS
+}
+\keyword{
+spacetime
+}

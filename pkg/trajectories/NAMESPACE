@@ -1,12 +1,14 @@
 import(sp)
 import(spacetime)
 import(lattice)
+import(maptools)
 importFrom(stats, aggregate, na.omit, time, start, end)
 
 export(traj_reader,
 	toSTTDF,
 	speed_cal,
-	hourly_stats
+	hourly_stats,
+  STItoSTTDF
 )
 
 #S3method(as.data.frame, STF)

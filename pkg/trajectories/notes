@@ -162,12 +162,13 @@ Notes:
 - 
 
 To-do:
-- Move methods to R directory (instead of Demo directory)
+- Move all methods to R directory (instead of Demo directory)
 - Learn how to build/install/check package (!!!HIGHEST PRIORITY!!!)
 - Figure out why keyword section are missing
 - Export STItoSTTDF to trajectories/NAMESPACE
 - Move the test section to demo directory
 - Put all testing in the example code in the R documentation file
+- Create a toy data set for example section of Rd file
 
 
 
