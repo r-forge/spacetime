@@ -42,9 +42,9 @@ trajs2@proj4string <- CRS("+proj=longlat +datum=WGS84")
 
 
 ##Test over()
-over(pol, trajs1)
-over(trajs1, pol)
+#over(pol, trajs1)
+#over(trajs1, pol)
 
-over(pol, trajs2)
-over(trajs2, pol, returnList = TRUE)
+#over(pol, trajs2)
+#over(trajs2, pol, returnList = TRUE)
 

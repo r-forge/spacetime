@@ -1,7 +1,7 @@
 import(sp)
 import(spacetime)
 import(lattice)
-import(maptools)
+#import(maptools)
 importFrom(stats, aggregate, na.omit, time, start, end)
 
 export(traj_reader,
