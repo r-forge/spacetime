@@ -1,7 +1,8 @@
-import(sp)
-import(spacetime)
 import(lattice)
 importFrom(stats, aggregate, na.omit, time, start, end)
+import(sp)
+import(spacetime)
+import(rgdal)
 
 export(traj_reader,
 	toSTTDF,

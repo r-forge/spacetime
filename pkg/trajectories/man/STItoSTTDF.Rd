@@ -25,28 +25,14 @@ STItoSTTDF(list, id = NA, trip = NA, elev = NA)
   A vector of levation of GPS point record. The length of the vector should be equal to the total number of GPS points in list.
   }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 \value{
 \code{sttdf} return a single STTDF object with all attribute values stored in the data slot of STTDF object.
 }
 
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Jinlong Yang - jinlong at psu.edu
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
  lat <- runif(10, 39, 40)
  long <- runif(10, 115, 116)
