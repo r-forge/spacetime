@@ -8,7 +8,7 @@ STI to STTDF with attributes computation
 Converts a list of STI objects into a single STTDF object and computes some basic attributes of trajectory, including: distance, time lapsed, change in elevation, change in moving direction between consecutive GPS points recorded. Also allows marking all attribute values with ID and trip.
 }
 \usage{
-STItoSTTDF(list = lst, id = NA, trip = NA, elev = elev)
+STItoSTTDF(list = lst, id = NA, trip = NA, elev = NA)
 }
 
 \arguments{
@@ -48,14 +48,7 @@ Jinlong Yang - jinlong at psu.edu
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-###NOT DIRECTLY EXCUTABLE - NEED TO CREATE A TOY DATASET###
-sttdf <- STItoSTTDF(list = lst, elev = elev)
-head(sttdf@data)
+
 }
 
-\keyword{
-GPS
-}
-\keyword{
-spacetime
-}
+\keyword{spatial}

@@ -2,7 +2,7 @@
 #library("maptools")
 
 STItoSTTDF <- function(list = lst, id = NA, trip = NA, elev = NA){
-  stt <- STT(STbox = NULL, list)
+  stt <- STT(list)
   
   #Count total number of points
   count <- 0
@@ -98,10 +98,10 @@ STItoSTTDF <- function(list = lst, id = NA, trip = NA, elev = NA){
   
   ##Potential solution
   ##Return shorter from diff()
-  elevChange = diff(sttdf@data[,3])
-  elevChange = diff(sttdf@data[,3])
-  tripChange = diff(as.numeric(sttdf@data[,2])) != 0
-  elevChange[tripChange] = NA
+  #elevChange = diff(sttdf@data[,3])
+  #elevChange = diff(sttdf@data[,3])
+  #tripChange = diff(as.numeric(sttdf@data[,2])) != 0
+  #elevChange[tripChange] = NA
 
   ##Add elevation change to data slot of the STTDF object
   sttdf@data$elevChange <- elevChange
