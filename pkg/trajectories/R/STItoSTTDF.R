@@ -1,7 +1,7 @@
 #library("spacetime")
 #library("maptools")
 
-STItoSTTDF <- function(list = lst, id = NA, trip = NA, elev = NA){
+STItoSTTDF <- function(list, id = NA, trip = NA, elev = NA){
   stt <- STT(list)
   
   #Count total number of points
@@ -60,6 +60,7 @@ STItoSTTDF <- function(list = lst, id = NA, trip = NA, elev = NA){
   ##Add time lapsed to data slot of the STTDF object
   sttdf@data$timeLapsed <- timeLapsed
   
+  if(FALSE){
   ##Calculate the absolute angle between consecutive points for each burst
   absAngle <- lapply(sttdf@traj, function(x){
     points <- as.matrix(data.frame(x@sp))
@@ -76,6 +77,7 @@ STItoSTTDF <- function(list = lst, id = NA, trip = NA, elev = NA){
   
   ##Add absolute turning angle to data slot of the STTDF object
   sttdf@data$absAngle <- all_absAngle
+  }
   
   ##Calucate speed and stored as a column in data slot of the STTDF object (Unit: km/h)
   sttdf@data$speed <- sttdf@data$dist / sttdf@data$timeLapsed * 3600
