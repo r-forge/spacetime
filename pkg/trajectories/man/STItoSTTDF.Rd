@@ -5,7 +5,7 @@
 STI to STTDF with attributes computation
 }
 \description{
-Converts a list of STI objects into a single STTDF object and computes some basic attributes of trajectory, including: distance, time lapsed, change in elevation, change in moving direction between consecutive GPS points recorded. Also allows marking all attribute values with ID and trip.
+Converts a list of STI objects into a single STTDF object and computes some basic attributes of trajectory, including: distance, time lapsed, speed (km/h), change in elevation, change in moving direction between consecutive GPS points recorded. Also allows marking all attribute values with ID and trip.
 }
 \usage{
 STItoSTTDF(list, id = NA, trip = NA, elev = NA)
