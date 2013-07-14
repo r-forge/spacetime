@@ -10,16 +10,16 @@ lat_max <- 40.07611
 lat_min <- 39.88710
 
 xpol <- c(long_min, 
-         long_max, 
-         long_max, 
-         long_min, 
-         long_min)
+          long_max, 
+          long_max, 
+          long_min, 
+          long_min)
 
 ypol <- c(lat_min, 
-         lat_max, 
-         lat_max, 
-         lat_min, 
-         lat_min)
+          lat_max, 
+          lat_max, 
+          lat_min, 
+          lat_min)
 
 pol <- SpatialPolygons(list(Polygons(list(Polygon(cbind(xpol,ypol))), ID="x1")))
 pol@proj4string <- CRS("+proj=longlat +datum=WGS84")
@@ -47,4 +47,3 @@ trajs2@proj4string <- CRS("+proj=longlat +datum=WGS84")
 
 #over(pol, trajs2)
 #over(trajs2, pol, returnList = TRUE)
-

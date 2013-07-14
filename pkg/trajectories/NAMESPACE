@@ -2,7 +2,11 @@ import(lattice)
 importFrom(stats, aggregate, na.omit, time, start, end)
 import(sp)
 import(spacetime)
+#export(rgdal)
+#exportClasses(rgdal, CRS)
+
 import(rgdal)
+#importClassesFrom(rgdal, CRS)
 
 export(traj_reader,
 	toSTTDF,
