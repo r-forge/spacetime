@@ -1,8 +1,5 @@
-library(spacetime)
-
 ##Modified after trajectories/demo/read.R with id and trip added
 
-##Need to be replaced by 
 ##Set path here
 path <- "/Users/jinlong/Documents/R/Geolife Trajectories 1.3/Data/"
 
@@ -33,6 +30,7 @@ for (d in dirs) {
       elev = c(elev, tab$elev)
       id = c(id, rep(d, nrow(tab)))
       a_trip = substr(f, 74, 86)
+      attr(lst[[i]], "trip") <- a_trip
       trip = c(trip, rep(a_trip, nrow(tab)))
       i = i+1
     }

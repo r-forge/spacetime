@@ -18,6 +18,7 @@ lst <- list()
 lst[[1]] <- traj
 
 ##Demo for STItoSTTDF method
+#sttdf <- STItoSTTDF(list = lst, elev = elev, id = id, trip = trip)
 sttdf <- STItoSTTDF(list = lst, elev = elev)
 
 ##Check trajectory attributes computated.

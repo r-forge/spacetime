@@ -2,17 +2,15 @@ import(lattice)
 importFrom(stats, aggregate, na.omit, time, start, end)
 import(sp)
 import(spacetime)
-#export(rgdal)
-#exportClasses(rgdal, CRS)
-
 import(rgdal)
-#importClassesFrom(rgdal, CRS)
+import(maptools)
 
 export(traj_reader,
 	toSTTDF,
 	speed_cal,
 	hourly_stats,
-  STItoSTTDF
+  STItoSTTDF,
+  over.STTDF.STTDF
 )
 
 #S3method(as.data.frame, STF)

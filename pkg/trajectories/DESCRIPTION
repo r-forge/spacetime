@@ -5,7 +5,7 @@ Title: classes and methods for trajectory data
 Author: Jinlong Yang <jinlong@psu.edu>, edzer pebesma <edzer.pebesma@uni-muenster.de>
 Maintainer: edzer pebesma <edzer.pebesma@uni-muenster.de>
 Depends: R (>= 2.14.0), methods, sp, spacetime (>= 1.0-5)
-Imports: lattice, rgdal
+Imports: lattice, rgdal, maptools
 Suggests: adehabitatLT, diveMove
 Description: Classes and methods for trajectory data
 License: GPL (>= 2)

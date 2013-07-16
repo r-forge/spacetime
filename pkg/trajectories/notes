@@ -159,7 +159,7 @@ Weekly Report 4:
 
 Notes:
 - Demo scripts should be executable independently
-- 
+
 
 To-do:
 - Move all methods to R directory (instead of Demo directory)
@@ -169,6 +169,22 @@ To-do:
 - Move the test section to demo directory
 - Put all testing in the example code in the R documentation file
 - Create a toy data set for example section of Rd file
+- Make calculation of elevation change faster by replacing for loops with diff() functions
+- Add ID and trip as attributes of STI objects in the traj slot of STTDF object
 
+Status:
+- Learned how to build/install/check package
+- Moved all methods to R directory
+- Exported STItoSTTDF to trajectories/NAMESPACE
+- Moved the test section to demo directory
+- Put all testing in the example code in the R documentation file
+- Created a toy data set for example section of Rd file
+- Made calculation of elevation change faster by replacing for loops with diff() functions
+- Added ID and trip as attributes of STI objects in the traj slot of STTDF object
 
+Problems:
+- Need to find a sample dataset with proper license for demostration
+- 
 
+Tasks:
+- TBA after meeting with Dr. Pebesma on Tuesday.
