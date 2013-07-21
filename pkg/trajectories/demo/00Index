@@ -3,3 +3,5 @@ read				[Imports GeoLife trajectories dataset and store in a single STTDF object
 STItoSTTDFdemo		[Demostration of STItoSTTDF method with a dummy trajectory dataset]
 STTDF_selection		[Demostration of STItoSTTDF method]
 traj_stats			[Calculate the hourly average of speed and elevation of GeoLife trajectories dataset]
+traj_sample  		[Read in sample trajectory data with five trips]
+over.STTDF.SpatialPolygons [Demo of over of STTDF and SpatialPolygons]

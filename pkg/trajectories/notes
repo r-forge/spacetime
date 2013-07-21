@@ -188,3 +188,22 @@ Problems:
 
 Tasks:
 - TBA after meeting with Dr. Pebesma on Tuesday.
+
+
+=======================
+July. 22, 2013
+Weekly Report 4:
+=======================
+
+To-do:
+- Start with a simpler scenario (a traj with a polygon)
+- Use SpatialLines
+- Coerce STI(STTDF) into SpatialLines to make use of over() for SpatialLines
+- over.sttdf.Spatial(Polygon, Line, Grid, Point) (without time)
+- Two selection level:
+ spatial selection (on traj level) (e.g., a STTDF and a polygon)
+ cutting trajs (on point level) (e.g., cut out trajs that overlapping with a polygon)
+cutTraj <- function(sttdf, SpatialPolygon){
+}
+over.STTDF.Spatial <- function(sttdf, Spatial){
+}

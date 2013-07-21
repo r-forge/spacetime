@@ -30,24 +30,8 @@ over.STTDF.STTDF(x, y, returnList = FALSE, ...)
 \code{super} return a single STTDF object with all attribute values stored in the data slot of STTDF object.
 }
 \references{
-%% ~put references to the literature/web site here ~
+TBA
 }
 \author{
-%%  ~~who you are~~
+Jinlong Yang: jinlong@psu.edu
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
