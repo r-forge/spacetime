@@ -1,14 +1,7 @@
 over.STTDF.SpatialPolygons <- function(sttdf, pol){
-  #Create a container for STI objects
-  lines <- list()
   
-  ##Store all STI objects into a list
-  for(i in 1: length(sttdf@traj)){
-    lines[[i]] <- Lines(Line(sttdf@traj[[i]]@sp), i)
-  }
-  
-  ##Convert all STI objects in a single SpatialLines object
-  sl <- SpatialLines(lines)
+  ##Convert the STTDF object in a single SpatialLines object
+  sl <- STTDFtoSpatialLines(sttdf)
   
   ##Overlap operation
   for(i in length(sl): 1){

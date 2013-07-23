@@ -10,6 +10,7 @@ export(traj_reader,
 	speed_cal,
 	hourly_stats,
   STItoSTTDF,
+  STTDFtoSpatialLines,
   over.STTDF.STTDF,
   over.STTDF.SpatialPolygons
 )

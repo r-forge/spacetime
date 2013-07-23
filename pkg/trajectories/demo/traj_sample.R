@@ -16,4 +16,4 @@ for(i in 1: length(traj_files)){
   }
 }
 
-save(traj_sample, file = "traj_sample.RData")
+#save(traj_sample, file = "traj_sample.RData")

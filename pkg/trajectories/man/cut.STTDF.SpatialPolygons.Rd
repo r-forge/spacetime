@@ -1,13 +1,13 @@
-\name{over.STTDF.SpatialPolygons}
-\alias{over.STTDF.SpatialPolygons}
+\name{cut.STTDF.SpatialPolygons}
+\alias{cut.STTDF.SpatialPolygons}
 \title{
-spatio-temporal overlap of STTDF and Polygons
+Get all points from a trajectory that overlay with a spatial polygon
 }
 \description{
-spatio-temporal overlap of STTDF and Polygons
+Get all points from a trajectory that overlay with a spatial polygon
 }
 \usage{
-over.STTDF.SpatialPolygons(sttdf, pol)
+cut.STTDF.SpatialPolygons(sttdf, pol)
 }
 
 \arguments{

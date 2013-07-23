@@ -10,7 +10,7 @@ STItoSTTDF <- function(list, id = NA, trip = NA, elev = NA){
     np <- nrow(data.frame(list[[i]]@sp))
     count <- count + np
   }
-    
+  
   
   if(is.na(id)[1]){
     id = rep(1, count)
