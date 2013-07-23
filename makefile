@@ -8,7 +8,7 @@ default:
 	make install
 
 cl:
-	(cd $(spacetime); svn2cl; mv ChangeLog spacetime/inst/ )
+	(cd pkg; svn2cl; mv ChangeLog spacetime/inst)
 
 release:
 	make cl

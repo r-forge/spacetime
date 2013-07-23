@@ -1,7 +1,7 @@
 \name{traj_sample}
+\alias{traj_sample}
 
 \title{Sample trajectory data for testing}
-\alias{Sample trajectory data for testing}
 \description{
 Public GPS traces from alex 18 at OpenStreetMap.org/trace/ . Five trajectories are available in this sample as five STI objects stored in a single list
 }
