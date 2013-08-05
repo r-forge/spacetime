@@ -19,7 +19,7 @@ cut.STTDF.SpatialPolygons <- function(sttdf, pol){
     
     if(length(inside) > 0){
       coords <- sl[1]@lines[[1]]@Lines[[1]]@coords
-      coord_inside <- coords[index(coords) %in% inside,]
+      coord_inside <- coords[inside, ]
       
       sp_inside <- SpatialPoints(coord_inside, proj4string = sl@proj4string)
       lines_inside <- Lines(Line(sp_inside), i)

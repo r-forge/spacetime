@@ -11,8 +11,10 @@ export(traj_reader,
 	hourly_stats,
   STItoSTTDF,
   STTDFtoSpatialLines,
+  STItoSpatialLines,
   over.STTDF.STTDF,
-  over.STTDF.SpatialPolygons
+  over.STTDF.SpatialPolygons,
+  summary.STI
 )
 
 #S3method(as.data.frame, STF)

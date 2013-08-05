@@ -207,3 +207,30 @@ cutTraj <- function(sttdf, SpatialPolygon){
 }
 over.STTDF.Spatial <- function(sttdf, Spatial){
 }
+
+Status:
+- Implemented the spatial overlay between STTDF and SpatialPolygons;
+- Wrote a function that coerces STTDF objects to SpatialLines objects;
+- Enables spatial overlay between STTDF and objects from Spatial classes from sp package;
+- Wrote a function that cutting trajs (on point level) based on its overlay with a SpatialPolygons object.
+
+Problems:
+- When coerce STTDF objects into SpatialLines object, the attribute data in the data slot of STTDF objects is lost;
+- When a trajectory is cutted into more than one piece by the overlay operation with a polygon, the over() function won't automatically detect the breaking points that divide the trajectory into multiple segments;
+- Potential bug in the trajectory cutting function.
+
+Tasks:
+- Store the attribute data of STTDF objects when coerce it into SpatialLines;
+- Reverse the coersion of STTDF objects to SpatialLines objects;
+- Testing the bug in the trajectory cutting function.
+
+
+
+
+- Added test directory and move all the demos into that directory
+
+
+
+
+- Correct STItoSTTDF to ListToSTTDF
+- 
