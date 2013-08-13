@@ -26,7 +26,8 @@ summary.STTDF <- function (object, ...){
   print(summary(object@sp))
   starting <- time(object@time[1,])
   ending <- time(object@time[length(object@time),])
-  duration <- as.numeric(difftime(ending, starting, units = "mins"))
+  duration <- round(as.numeric(difftime(ending, starting, units = "mins")), 3)
+  ave_elevation <- mean(object@data$elev)
   cat("\n")
   cat(paste("Time:", "\n"))
   cat(paste("Starting time:", starting, "\n"))
@@ -34,5 +35,6 @@ summary.STTDF <- function (object, ...){
   cat(paste("Duration: ", duration, "mins", "\n", sep = ""))
   cat("\n")
   cat(paste("Average speed: ", ave_speed, "km/h", "\n", sep = ""))
+  cat(paste("Average elevation: ", ave_elevation, "m", sep = ""))
 }
 setMethod("summary", signature(object = "STTDF"), summary.STTDF)

@@ -1,5 +1,5 @@
 plot.STI <- function(x, y, ...) {
-  if(!(any(class(object) == "STI"))){
+  if(!(any(class(x) == "STI"))){
     stop("Object should be of class \"STI\"")
   }
   sl <- STItoSpatialLines(x)
@@ -9,13 +9,13 @@ setMethod("plot", signature(x = "STI", y = "missing"), plot.STI)
 
 
 plot.STTDF <- function(x, y, ...){
-  if(!(any(class(object) == "STTDF"))){
+  if(!(any(class(x) == "STTDF"))){
     stop("Object should be of class \"STTDF\"")
   }
   sl <- STTDFtoSpatialLines(x)
   ##Plot the bounding box
   ###need to remove the corner points later
-  plot(x@sp)
+  plot(x@sp, pch = ".")
   ##Create n distinct colors
   colors <- rainbow(length(sl))
   ##Ploting

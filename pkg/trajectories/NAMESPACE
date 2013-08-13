@@ -6,15 +6,13 @@ import(rgdal)
 import(maptools)
 
 export(traj_reader,
-	toSTTDF,
-	speed_cal,
 	hourly_stats,
   STItoSTTDF,
   STTDFtoSpatialLines,
   STItoSpatialLines,
-  over.STTDF.STTDF,
-  over.STTDF.SpatialPolygons,
-  summary.STI
+  summary.STI,
+  cut.STTDF.SpatialPolygons,
+  crop
 )
 
 #S3method(as.data.frame, STF)

@@ -190,8 +190,8 @@ Tasks:
 
 
 =======================
-July. 29, 2013
-Weekly Report 6:
+July. 22, 2013
+Weekly Report 5:
 =======================
 
 To-do:
@@ -223,23 +223,41 @@ Tasks:
 - Reverse the coersion of STTDF objects to SpatialLines objects;
 - Testing the bug in the trajectory cutting function.
 
+
+=======================
+Jul. 29, 2013
+Weekly Report 6:
+=======================
+
+Status:
+- Impletmented the plot function for STI and STTDF objects;
+- Stored attribute data of STTDF objects in the data slot of STTDF and the attribute(s) of each individual point can be linked to its spatial and temporal property by its index;
+- Resolved part of the bugs in the trajectory cutting function.
+
+Problems:
+- Need to remove the markers for bounding box when plot STTDF objects;
+
+
+Tasks:
+- Impletment summary function for STI and STTDF objects;
+- Impletment selecting function for STI and STTDF objects.
+
 =======================
 Aug. 5, 2013
 Weekly Report 7:
 =======================
 
 Status:
-- Impletmented the plot function for STI  and STTDF objects;
 - Impletmented the summary function for STI and STTDF objects;
 - Added STItoSpatialLines.R;
 - Added test directory and move all the demos into that directory;
 - House-cleaning for the working directory;
 
 Problems:
-- Need to remove the markers for bounding box when plot STTDF objects;
 - Need to rename and modify the cut.STTDF.SpatialPolygons.R into cut.R;
+- Need an extra container to store attribute data when doing the coersion: STTDF -> SpatialLines -> STTDF.
 
 Tasks:
-- Impletment the selecting method for STTDF;
+- Impletment the selecting function for STTDF;
 - Impletment the temporal sampling for STTDF;
 - Modify the traj_stats into aggreate.STTDF();

@@ -3,12 +3,12 @@ library(spacetime)
 sel = TRUE
 lst = list()
 i = j = 1
-dirs = list.files("Data")[sel]
+dirs = list.files("/Users/jinlong/Documents/R/Geolife Trajectories 1.3/Data")[sel]
 crs = CRS("+proj=longlat +datum=WGS84")
 pb = txtProgressBar(style = 3, max = length(dirs))
 elev = numeric(0)
 for (d in dirs) {
-	dir = paste("Data", d, "Trajectory", sep = "/")
+	dir = paste("/Users/jinlong/Documents/R/Geolife Trajectories 1.3/Data", d, "Trajectory", sep = "/")
 	#print(dir)
 	for (f in list.files(dir, pattern = "*plt", full.names = TRUE)) {
 		tab = read.csv(f, skip = 6, stringsAsFactors=FALSE)
