@@ -1,7 +1,7 @@
 
-R version 3.0.0 (2013-04-03) -- "Masked Marvel"
+R version 3.0.1 (2013-05-16) -- "Good Sport"
 Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -21,7 +21,6 @@ Type 'q()' to quit R.
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
 > library('spacetime')
-Loading required package: sp
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -32,15 +31,16 @@ Loading required package: sp
 > 
 > ### Name: ST-class
 > ### Title: Class "ST"
-> ### Aliases: ST-class xts-class ST dim.ST [[<-,ST,ANY,missing-method
-> ###   [[,ST,ANY,missing-method $<-,ST-method $,ST-method cbind.ST
-> ###   is.projected,ST-method proj4string,ST-method
+> ### Aliases: ST-class xts-class zoo-class ST dim.ST
+> ###   [[<-,ST,ANY,missing-method [[,ST,ANY,missing-method $<-,ST-method
+> ###   $,ST-method cbind.ST is.projected,ST-method proj4string,ST-method
 > ###   proj4string<-,ST,CRS-method proj4string<-,ST,character-method
 > ### Keywords: classes
 > 
 > ### ** Examples
 > 
 > time = as.Date('2008-01-01')+1:2
+> library(sp)
 > sp = SpatialPoints(cbind(c(0,1),c(0,1)))
 > ST(sp, time, delta(time))
 An object of class "ST"
@@ -63,6 +63,9 @@ Slot "endTime":
 > 
 > 
 > cleanEx()
+
+detaching ‘package:sp’
+
 > nameEx("STFDF-class")
 > ### * STFDF-class
 > 
@@ -72,13 +75,15 @@ Slot "endTime":
 > ### Title: Class "STFDF"
 > ### Aliases: STFDF-class STF-class STFDF STF as.data.frame.STF
 > ###   [,STFDF-method coerce,STFDF,xts-method coerce,STFDF,Spatial-method
-> ###   plot,STF,missing-method na.omit.STFDF rbind.STFDF
+> ###   plot,STF,missing-method plot,STFDF,missing-method na.omit.STFDF
+> ###   rbind.STFDF as.zoo as.zoo.STFDF
 > ### Keywords: classes
 > 
 > ### ** Examples
 > 
 > sp = cbind(x = c(0,0,1), y = c(0,1,1))
 > row.names(sp) = paste("point", 1:nrow(sp), sep="")
+> library(sp)
 > sp = SpatialPoints(sp)
 > time = as.POSIXct("2010-08-05")+3600*(10:13)
 > m = c(10,20,30) # means for each of the 3 point locations
@@ -326,6 +331,9 @@ Slot "endTime":
 > 
 > 
 > cleanEx()
+
+detaching ‘package:sp’
+
 > nameEx("STSDF-class")
 > ### * STSDF-class
 > 
@@ -335,13 +343,15 @@ Slot "endTime":
 > ### Title: Class "STSDF"
 > ### Aliases: STSDF-class STS-class STSDF STS as.data.frame.STSDF
 > ###   as.data.frame.STS [,STSDF-method coerce,STSDF,STFDF-method
-> ###   coerce,STSDF,STIDF-method plot,STS,missing-method rbind.STSDF
+> ###   coerce,STSDF,STIDF-method plot,STS,missing-method
+> ###   plot,STSDF,missing-method rbind.STSDF
 > ### Keywords: classes
 > 
 > ### ** Examples
 > 
 > sp = cbind(x = c(0,0,1), y = c(0,1,1))
 > row.names(sp) = paste("point", 1:nrow(sp), sep="")
+> library(sp)
 > sp = SpatialPoints(sp)
 > library(xts)
 Loading required package: zoo
@@ -653,7 +663,7 @@ Slot "endTime":
 > 
 > cleanEx()
 
-detaching ‘package:xts’, ‘package:zoo’
+detaching ‘package:xts’, ‘package:zoo’, ‘package:sp’
 
 > nameEx("STTDF-class")
 > ### * STTDF-class
@@ -669,6 +679,7 @@ detaching ‘package:xts’, ‘package:zoo’
 > 
 > ### ** Examples
 > 
+> library(sp)
 > m = 3# nr of trajectories
 > n = 100 # length of each
 > l = vector("list", m)
@@ -706,6 +717,9 @@ detaching ‘package:xts’, ‘package:zoo’
 > 
 > 
 > cleanEx()
+
+detaching ‘package:sp’
+
 > nameEx("air")
 > ### * air
 > 
@@ -738,11 +752,11 @@ detaching ‘package:xts’, ‘package:zoo’
 > 
 > x = as.POSIXct("2000-01-01") + (0:9) * 3600
 > delta(x)
- [1] "2000-01-01 01:00:00 CEST" "2000-01-01 02:00:00 CEST"
- [3] "2000-01-01 03:00:00 CEST" "2000-01-01 04:00:00 CEST"
- [5] "2000-01-01 05:00:00 CEST" "2000-01-01 06:00:00 CEST"
- [7] "2000-01-01 07:00:00 CEST" "2000-01-01 08:00:00 CEST"
- [9] "2000-01-01 09:00:00 CEST" "2000-01-01 10:00:00 CEST"
+ [1] "2000-01-01 01:00:00 CET" "2000-01-01 02:00:00 CET"
+ [3] "2000-01-01 03:00:00 CET" "2000-01-01 04:00:00 CET"
+ [5] "2000-01-01 05:00:00 CET" "2000-01-01 06:00:00 CET"
+ [7] "2000-01-01 07:00:00 CET" "2000-01-01 08:00:00 CET"
+ [9] "2000-01-01 09:00:00 CET" "2000-01-01 10:00:00 CET"
 > 
 > 
 > 
@@ -785,12 +799,13 @@ detaching ‘package:xts’, ‘package:zoo’
 + plot(EOF(wind.st, "temporal", returnPredictions=FALSE))
 + }
 Loading required package: gstat
+Loading required package: sp
 > 
 > 
 > 
 > cleanEx()
 
-detaching ‘package:gstat’
+detaching ‘package:gstat’, ‘package:sp’
 
 > nameEx("fires")
 > ### * fires
@@ -807,6 +822,7 @@ detaching ‘package:gstat’
 > data(fires)
 > fires$X <- fires$X*100000
 > fires$Y <- fires$Y*100000
+> library(sp)
 > coordinates(fires) <- c("X", "Y")
 > proj4string(fires) <- CRS("+init=epsg:2229")
 > dates <- as.Date("1960-01-01")+(fires$Time-1)
@@ -823,15 +839,12 @@ detaching ‘package:gstat’
 +   stplot(Fires, sp.layout=list("sp.lines", cc))
 + }
 Loading required package: rgdal
-rgdal: version: 0.8-8, (SVN revision 463)
+rgdal: version: 0.8-11, (SVN revision 479M)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.9.2, released 2012/10/08
 Path to GDAL shared files: /usr/share/gdal/1.9
 Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
 Path to PROJ.4 shared files: (autodetected)
-Loading required package: foreign
-Loading required package: grid
-Loading required package: lattice
 Checking rgeos availability: TRUE
 Loading required package: maps
 > 
@@ -840,7 +853,7 @@ Loading required package: maps
 > cleanEx()
 
 detaching ‘package:mapdata’, ‘package:maps’, ‘package:maptools’,
-  ‘package:lattice’, ‘package:grid’, ‘package:foreign’, ‘package:rgdal’
+  ‘package:rgdal’, ‘package:sp’
 
 > nameEx("na")
 > ### * na
@@ -856,6 +869,7 @@ detaching ‘package:mapdata’, ‘package:maps’, ‘package:maptools’,
 > ### ** Examples
 > 
 > # toy example:
+> library(sp)
 > pts = SpatialPoints(cbind(c(0,1),c(0,1)))
 > Sys.setenv(TZ="GMT")
 > tm = seq(as.POSIXct("2012-11-25"), as.POSIXct("2012-11-30"), "1 day")
@@ -999,6 +1013,9 @@ detaching ‘package:mapdata’, ‘package:maps’, ‘package:maptools’,
 > 
 > 
 > cleanEx()
+
+detaching ‘package:sp’
+
 > nameEx("stconstruct")
 > ### * stconstruct
 > 
@@ -1017,9 +1034,7 @@ detaching ‘package:mapdata’, ‘package:maps’, ‘package:maptools’,
 > IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 >  
 > library(maptools)
-Loading required package: foreign
-Loading required package: grid
-Loading required package: lattice
+Loading required package: sp
 Checking rgeos availability: TRUE
 > states = map2SpatialPolygons(states.m, IDs=IDs)
 > 
@@ -1064,7 +1079,7 @@ The following object is masked from ‘package:base’:
 [1] "STIDF"
 attr(,"package")
 [1] "spacetime"
-> stplot(x[,,"unemp"], yrs)
+> stplot(x[,,"unemp"])
 > 
 > # alternatively, pass states as SpatialObj:
 > Produc$state = gsub("TENNESSE", "TENNESSEE", Produc$state)
@@ -1126,8 +1141,51 @@ attr(,"package")
 
 detaching ‘package:gstat’, ‘package:plm’, ‘package:sandwich’,
   ‘package:zoo’, ‘package:MASS’, ‘package:Formula’, ‘package:nlme’,
-  ‘package:bdsmatrix’, ‘package:maptools’, ‘package:lattice’,
-  ‘package:grid’, ‘package:foreign’, ‘package:maps’
+  ‘package:bdsmatrix’, ‘package:maptools’, ‘package:sp’, ‘package:maps’
+
+> nameEx("stinteraction")
+> ### * stinteraction
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: stInteraction
+> ### Title: subtract marginal (spatial and temporal) means from observations
+> ### Aliases: stInteraction
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+> 
+> if (require(gstat)) {
++ data(wind)
++ wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
++ wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
++ coordinates(wind.loc) = ~x+y
++ proj4string(wind.loc) = "+proj=longlat +datum=WGS84"
++ # match station order to names in wide table:
++ stations = 4:15
++ wind.loc = wind.loc[match(names(wind[stations]), wind.loc$Code),]
++ row.names(wind.loc) = wind.loc$Station
++ wind$time = ISOdate(wind$year+1900, wind$month, wind$day, 0)
++ space = list(values = names(wind)[stations])
++ wind.st = stConstruct(wind[stations], space, wind$time, SpatialObj = wind.loc)
++ 
++ wind.sti = stInteraction(wind.st)
++ # temporal means for any station should be zero:
++ c(mean(wind.sti[3,]),
++ # spatial mean for each time step should be zero:
++ mean(wind.sti[,5][[1]]))
++ }
+Loading required package: gstat
+Loading required package: sp
+[1]  3.948633e-16 -8.141636e-16
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:gstat’, ‘package:sp’
 
 > nameEx("tgrass")
 > ### * tgrass
@@ -1289,6 +1347,7 @@ integer(0)
 > 
 > sp = cbind(x = c(0,0,1), y = c(0,1,1))
 > row.names(sp) = paste("point", 1:nrow(sp), sep="")
+> library(sp)
 > sp = SpatialPoints(sp)
 > library(xts)
 Loading required package: zoo
@@ -1345,8 +1404,9 @@ point3               30.40
 > 
 > ### * <FOOTER>
 > ###
+> options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.728 0.208 9.979 0 0 
+Time elapsed:  9.768 0.372 10.174 0 0 
 > grDevices::dev.off()
 null device 
           1 

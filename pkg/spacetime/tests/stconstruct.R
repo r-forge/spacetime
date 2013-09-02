@@ -1,3 +1,4 @@
+library(sp)
 library(spacetime)
 library(xts)
 

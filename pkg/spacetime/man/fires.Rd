@@ -31,6 +31,7 @@ example code by Roger Bivand.
 data(fires)
 fires$X <- fires$X*100000
 fires$Y <- fires$Y*100000
+library(sp)
 coordinates(fires) <- c("X", "Y")
 proj4string(fires) <- CRS("+init=epsg:2229")
 dates <- as.Date("1960-01-01")+(fires$Time-1)

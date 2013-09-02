@@ -34,6 +34,7 @@ details are found in
 \references{ http://www.jstatsoft.org/v51/i07/ }
 \examples{
 # toy example:
+library(sp)
 pts = SpatialPoints(cbind(c(0,1),c(0,1)))
 Sys.setenv(TZ="GMT")
 tm = seq(as.POSIXct("2012-11-25"), as.POSIXct("2012-11-30"), "1 day")

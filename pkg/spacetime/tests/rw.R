@@ -1,3 +1,4 @@
+library(sp)
 library(spacetime)
 
 m = 3# nr of trajectories

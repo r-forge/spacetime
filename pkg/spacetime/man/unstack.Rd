@@ -28,6 +28,7 @@ accordingly.
 \examples{
 sp = cbind(x = c(0,0,1), y = c(0,1,1))
 row.names(sp) = paste("point", 1:nrow(sp), sep="")
+library(sp)
 sp = SpatialPoints(sp)
 library(xts)
 time = xts(1:4, as.POSIXct("2010-08-05")+3600*(10:13))

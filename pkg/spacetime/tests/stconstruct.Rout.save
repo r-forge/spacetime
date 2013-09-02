@@ -15,8 +15,8 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
+> library(sp)
 > library(spacetime)
-Loading required package: sp
 > library(xts)
 Loading required package: zoo
 
@@ -34,9 +34,6 @@ The following object is masked from 'package:base':
 > IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 >     
 > library(maptools)
-Loading required package: foreign
-Loading required package: grid
-Loading required package: lattice
 Checking rgeos availability: TRUE
 > states = map2SpatialPolygons(states.m, IDs=IDs)
 > 
@@ -99,4 +96,4 @@ attr(,"package")
 > 
 > proc.time()
    user  system elapsed 
-  2.356   0.072   2.428 
+  2.324   0.132   2.461 

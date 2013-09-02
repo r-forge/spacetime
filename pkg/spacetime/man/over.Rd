@@ -2,6 +2,7 @@
 \docType{methods}
 \alias{over}
 \alias{over,xts,xts-method}
+\alias{over,ST,STS-method}
 \alias{over,STF,STF-method}
 \alias{over,STS,STF-method}
 \alias{over,STI,STF-method}

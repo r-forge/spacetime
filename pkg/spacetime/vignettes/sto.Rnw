@@ -116,6 +116,7 @@ that spatially matches {\tt x[i]}.
 Package {\tt spacetime} adds {\tt over} methods to those defined 
 for spatial data in package {\tt sp}:
 <<>>=
+library(sp)
 library(spacetime)
 showMethods(over)
 @
@@ -310,6 +311,7 @@ function \code{as.yearqtr} from package \code{zoo} transforms dates
 to quarters, and hence allows aggregation {\em to} quarterly values,
 in this example medians:
 <<>>=
+library(zoo)
 x = aggregate(rural[sel,"2005::2011"], as.yearqtr, median, na.rm=TRUE)
 stplot(x, mode = "tp")
 @

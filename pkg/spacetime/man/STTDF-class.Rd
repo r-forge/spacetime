@@ -58,6 +58,7 @@ individual items. }
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
 \references{ http://www.jstatsoft.org/v51/i07/ }
 \examples{
+library(sp)
 m = 3# nr of trajectories
 n = 100 # length of each
 l = vector("list", m)

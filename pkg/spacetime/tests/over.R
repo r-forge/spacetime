@@ -1,3 +1,4 @@
+require(sp)
 require(spacetime)
 options(xts_check_TZ=FALSE)
 

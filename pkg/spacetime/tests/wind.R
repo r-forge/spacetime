@@ -1,6 +1,7 @@
 ###################################################
 ### chunk number 19: 
 ###################################################
+library(sp)
 library(spacetime)
 if (require(gstat)) {
 data(wind)

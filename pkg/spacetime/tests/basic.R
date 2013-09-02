@@ -3,6 +3,7 @@ options(xts_check_TZ=FALSE)
 ###################################################
 ### chunk number 4: 
 ###################################################
+library(sp)
 library(spacetime)
 set.seed(13579) # to make outcome a bit predictable!
 sp = cbind(x = c(0,0,1), y = c(0,1,1))

@@ -71,6 +71,7 @@ data, similar to Spatial in the sp package.
 \references{ http://www.jstatsoft.org/v51/i07/ }
 \examples{
 time = as.Date('2008-01-01')+1:2
+library(sp)
 sp = SpatialPoints(cbind(c(0,1),c(0,1)))
 ST(sp, time, delta(time))
 }

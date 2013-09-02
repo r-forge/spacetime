@@ -2,6 +2,11 @@ spacetime	= pkg/spacetime
 
 R		= R
 
+def:
+	R CMD build pkg/trajectories
+	R CMD INSTALL trajectories_*
+	R CMD check trajectories_*
+
 default:
 	rm -fr $(spacetime)*tar.gz
 	make build

@@ -33,9 +33,10 @@ export(delta,
 )
 
 exportMethods(
-	timeMatch,
+	over,
 	plot,
-	stplot
+	stplot,
+	timeMatch
 )
 
 S3method(aggregate, ST)
