@@ -11,8 +11,8 @@ export(traj_reader,
   STTDFtoSpatialLines,
   STItoSpatialLines,
   summary.STI,
-  cut.STTDF.SpatialPolygons,
-  crop
+  crop,
+  aggregate
 )
 
 #S3method(as.data.frame, STF)

@@ -13,7 +13,7 @@ long_max <- max(sttdf@traj[[1]]@sp$long)
 lat_range <- lat_max - lat_min
 long_range <- long_max - long_min
 
-#lat_max <- lat_max - lat_range/2
+#lat_max <- lat_max - lat_range/2c
 long_max <- long_max - long_range/2
 
 xpol <- c(long_min, 
@@ -30,6 +30,10 @@ ypol <- c(lat_min,
 pol <- SpatialPolygons(list(Polygons(list(Polygon(cbind(xpol,ypol))), ID="x1")))
 pol@proj4string <- CRS("+proj=longlat +datum=WGS84")
 
-##Do the crop
+##Do the crop (with discontinued trips divided into sub trips)
 sttdf_cropped <- crop(sttdf, pol)
 sttdf_cropped
+
+#length(sttdf_cropped@traj[[1]]@sp) + 
+#length(sttdf_cropped@traj[[2]]@sp)
+#nrow(sttdf_cropped@data)
