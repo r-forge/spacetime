@@ -17,6 +17,7 @@ and $m$ the grand mean.
 \examples{
 
 if (require(gstat)) {
+library(sp)
 data(wind)
 wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
 wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))

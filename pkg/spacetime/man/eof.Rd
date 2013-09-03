@@ -24,6 +24,7 @@ mode, an object of class \code{xts}.
 
 if (require(gstat)) {
 data(wind)
+library(sp)
 wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
 wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
 coordinates(wind.loc) = ~x+y
