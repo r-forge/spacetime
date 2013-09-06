@@ -1,0 +1,99 @@
+
+R version 3.0.1 (2013-05-16) -- "Good Sport"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(trajectories)
+Loading required package: sp
+Loading required package: spacetime
+Loading required package: rgeos
+rgeos version: 0.2-20, (SVN revision (unknown))
+ GEOS runtime version: 3.3.8-CAPI-1.7.8 
+ Polygon checking: TRUE 
+
+
+Attaching package: 'trajectories'
+
+The following object is masked from 'package:stats':
+
+    aggregate
+
+> ##Demo
+> ##Create a dummy trajectory with 10 points
+> lat <- runif(10, 39, 40)
+> long <- runif(10, 115, 116)
+> elev <- runif(10, 95, 100)
+> t1 <- "2008-10-24 02:09:59"
+> t2 <- "2008-10-24 02:10:08" 
+> t1 <- as.POSIXct(t1, tz = "GMT")
+> t2 <- as.POSIXct(t2, tz = "GMT")
+> time <- seq(t1, t2, by = 1)
+> traj <- data.frame(lat, long, elev, time)
+> 
+> ##Convert the trajectory into a STI object
+> traj <- STI(SpatialPoints(traj[,2:1]), traj$time)
+> 
+> ##Store the trajectory into a list
+> lst <- list()
+> lst[[1]] <- traj
+> 
+> ##Demo for STItoSTTDF method
+> #sttdf <- STItoSTTDF(list = lst, elev = elev, id = id, trip = trip)
+> sttdf <- STItoSTTDF(list = lst, elev = elev)
+> 
+> ##Check trajectory attributes computated.
+> head(sttdf@data)
+  id trip     elev      dist timeLapsed  absAngle     speed elevChange
+1  1    1 98.35142        NA         NA        NA        NA         NA
+2  1    1 97.68169 59.737363          1  139.6361 215054.51 -0.6697321
+3  1    1 95.65250 15.120577          1  146.3585  54434.08 -2.0291852
+4  1    1 99.35584 46.999569          1 -177.7194 169198.45  3.7033334
+5  1    1 95.22353 61.216097          1  148.2794 220377.95 -4.1323027
+6  1    1 96.72831  7.643402          1  145.8219  27516.25  1.5047731
+> 
+> ##Check the max and min displacement
+> min(sttdf@data$dist, na.rm = TRUE)
+[1] 7.643402
+> max(sttdf@data$dist, na.rm = TRUE)
+[1] 91.90892
+> 
+> ##Check the max and min time lapsed
+> min(sttdf@data$timeLapsed, na.rm = TRUE)
+[1] 1
+> max(sttdf@data$timeLapsed, na.rm = TRUE)
+[1] 1
+> 
+> ##Check the max and min absAngle
+> min(sttdf@data$absAngle, na.rm = TRUE)
+[1] -177.7194
+> max(sttdf@data$absAngle, na.rm = TRUE)
+[1] 175.0023
+> 
+> ##Check the max and min speed
+> min(sttdf@data$speed, na.rm = TRUE)
+[1] 27516.25
+> max(sttdf@data$s, na.rm = TRUE)
+[1] 330872.1
+> 
+> ##Check the max and min elevation change
+> ##There are some extreme values here.. Need to triple check..!
+> min(sttdf@data$elevChange, na.rm = TRUE)
+[1] -4.132303
+> max(sttdf@data$elevChange, na.rm = TRUE)
+[1] 3.703333
+> 
+> proc.time()
+   user  system elapsed 
+  1.388   0.072   1.459 
