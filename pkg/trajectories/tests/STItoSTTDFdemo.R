@@ -1,3 +1,4 @@
+library(trajectories)
 ##Demo
 ##Create a dummy trajectory with 10 points
 lat <- runif(10, 39, 40)

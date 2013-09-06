@@ -1,3 +1,4 @@
+library(trajectories)
 ##Load sample data
 data(traj_sample)
 
@@ -13,7 +14,7 @@ long_max <- max(sttdf@traj[[1]]@sp$long)
 lat_range <- lat_max - lat_min
 long_range <- long_max - long_min
 
-#lat_max <- lat_max - lat_range/2c
+lat_max <- lat_max - lat_range/2
 long_max <- long_max - long_range/2
 
 xpol <- c(long_min, 
