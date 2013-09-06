@@ -15,4 +15,8 @@ export(traj_reader,
   aggregate
 )
 
+exportMethods(
+	plot
+)
+
 #S3method(as.data.frame, STF)
