@@ -8,8 +8,8 @@ Output the summary of STI and STTDF objects
 Outpout the summary of STI and STTDF objects
 }
 \usage{
-summary.STI(object, ...)
-summary.STTDF(object, ...)
+\method{summary}{STI}(object, ...)
+\method{summary}{STTDF}(object, ...)
 }
 
 \arguments{
