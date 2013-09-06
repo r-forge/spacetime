@@ -1,6 +1,7 @@
 library(trajectories)
 ##Demo
 ##Create a dummy trajectory with 10 points
+set.seed(1331)
 lat <- runif(10, 39, 40)
 long <- runif(10, 115, 116)
 elev <- runif(10, 95, 100)
