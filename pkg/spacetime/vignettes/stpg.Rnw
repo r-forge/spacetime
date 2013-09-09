@@ -126,7 +126,8 @@ tables in the PostGIS database, the name(s) of the attributes in the
 attribute table, and the database connection.
 <<keep.source=TRUE>>=
 setClass("ST_PG", contains = "ST", 
-	slots = c(space_table = "character",
+	# slots = c(space_table = "character",
+	representation(space_table = "character",
 	time_table = "character",
 	attr_table = "character",
 	attr = "character",
