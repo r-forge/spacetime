@@ -33,6 +33,8 @@ export(delta,
 )
 
 exportMethods(
+	aggregate,
+	geometry,
 	over,
 	plot,
 	stplot,

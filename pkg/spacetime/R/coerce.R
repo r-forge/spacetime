@@ -147,8 +147,8 @@ setAs("STIDF", "STTDF",
 			traj = list(as(from, "STI"))
 		else
 			traj = lapply(split(from, from$burst), function(x) as(x, "STI"))
-		STIbox = STI(SpatialPoints(cbind(range(from$x), range(from$y)), 
-				from@sp@proj4string), range(from$date))
+		STIbox = STI(SpatialPoints(t(bbox(from@sp)), from@sp@proj4string),
+				range(index(from)))
 		new("STTDF", new("STT", STIbox, traj = traj), data = from@data)
 	}
 )
