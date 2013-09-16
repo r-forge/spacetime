@@ -28,12 +28,16 @@ ypol <- c(lat_min,
 pol <- SpatialPolygons(list(Polygons(list(Polygon(cbind(xpol,ypol))), ID="x1")))
 pol@proj4string <- CRS("+proj=longlat +datum=WGS84")
 
+##Do the crop
+sttdf_cropped <- crop(sttdf, pol)
 
-cropped <- crop(sttdf, pol)
 
+plot(sttdf)
+plot(pol, add = TRUE)
 
-#plot(cropped)
+plot(sttdf_cropped)
+plot(pol, add = TRUE)
+
 #plot(pol, add=T)
-#plot(sttdf)
-#sttdf@sp
-#save(cropped, file = "crop_and_plot_demo.Rout.save")
+#plot(sttdf_cropped)
+#save(sttdf_cropped, file = "crop_and_plot_demo.Rout.save")
