@@ -8,12 +8,12 @@ crop <- function(sttdf, pol){
   for(i in 1:length(sttdf@traj)){
     points_processed <- 0
     sti <- sttdf@traj[[i]]
+	cc = coordinates(sti@sp)
     overlay <- point.in.polygon(
 #      point.x = sti@sp$long,
 #      point.y = sti@sp$lat,
-	  cc = coordinates(sti@sp)
-      point.x = cc[,1]
-      point.y = cc[,2]
+      point.x = cc[,1],
+      point.y = cc[,2],
       pol.x = pol@polygons[[1]]@Polygons[[1]]@coords[, 1], 
       pol.y = pol@polygons[[1]]@Polygons[[1]]@coords[, 2]
     )
