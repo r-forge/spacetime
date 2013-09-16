@@ -1,7 +1,11 @@
+##Load libraries
+library(spacetime)
+library(trajectories)
+
 ##Load sample data
 data(traj_sample)
 
-##Convert sample data into a single STTDF object
+##Convert sample data into an STTDF object
 sttdf <- STItoSTTDF(traj_sample)
 
 ##Create a SpatialPolygons object
@@ -15,7 +19,6 @@ xpol <- c(long_min,
           long_max, 
           long_min, 
           long_min)
-
 ypol <- c(lat_min, 
           lat_min, 
           lat_max, 
@@ -26,4 +29,11 @@ pol <- SpatialPolygons(list(Polygons(list(Polygon(cbind(xpol,ypol))), ID="x1")))
 pol@proj4string <- CRS("+proj=longlat +datum=WGS84")
 
 
-result <- over.STTDF.SpatialPolygons(sttdf = sttdf, pol = pol)
+cropped <- crop(sttdf, pol)
+
+
+#plot(cropped)
+#plot(pol, add=T)
+#plot(sttdf)
+#sttdf@sp
+#save(cropped, file = "crop_and_plot_demo.Rout.save")

@@ -11,6 +11,9 @@ export(traj_reader,
   STTDFtoSpatialLines,
   STItoSpatialLines,
   summary.STI,
+  summary.STTDF,
+  plot.STI,
+  plot.STTDF,
   crop,
   aggregate
 )

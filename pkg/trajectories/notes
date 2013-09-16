@@ -261,3 +261,17 @@ Tasks:
 - Impletment the selecting function for STTDF;
 - Impletment the temporal sampling for STTDF;
 - Modify the traj_stats into aggreate.STTDF();
+
+
+
+
+
+
+
+=======================
+Sept. 6, 2013
+Weekly Report 12:
+=======================
+library(sp)
+> system.file("external/test.ag", package="sp")
+[1] "/home/edzer/R/x86_64-unknown-linux-gnu-library/3.0/sp/external/test.ag"

@@ -1,7 +1,13 @@
 ##Modified after trajectories/demo/read.R with id and trip added
 
-##Set path here
-path <- "/Users/jinlong/Documents/R/Geolife Trajectories 1.3/Data/"
+##Set path where the "GeoLife Trajectories 1.3" is store here and run the entire script
+path <- "/Users/jinlong/Documents/R/"
+
+##Load library
+library(spacetime)
+
+##Add path to the sub-folders
+path <- paste(path, "Geolife Trajectories 1.3/Data/", sep = "")
 
 sel = TRUE
 lst = list()
@@ -38,3 +44,11 @@ for (d in dirs) {
   setTxtProgressBar(pb, j)
   j = j+1
 }
+
+object.size(lst)
+stt = STT(lst)
+rm(lst)
+dim(stt)
+object.size(stt)
+sttdf = STTDF(stt, data.frame(elev = elev))
+object.size(sttdf)

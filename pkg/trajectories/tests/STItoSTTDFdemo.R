@@ -1,5 +1,7 @@
+##Load library
 library(trajectories)
-##Demo
+library(spacetime)
+
 ##Create a dummy trajectory with 10 points
 set.seed(1331)
 lat <- runif(10, 39, 40)
@@ -43,6 +45,5 @@ min(sttdf@data$speed, na.rm = TRUE)
 max(sttdf@data$s, na.rm = TRUE)
 
 ##Check the max and min elevation change
-##There are some extreme values here.. Need to triple check..!
 min(sttdf@data$elevChange, na.rm = TRUE)
 max(sttdf@data$elevChange, na.rm = TRUE)

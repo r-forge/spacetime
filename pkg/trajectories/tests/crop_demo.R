@@ -1,4 +1,7 @@
+##Load libraries
+library(spacetime)
 library(trajectories)
+
 ##Load sample data
 data(traj_sample)
 
@@ -38,3 +41,7 @@ sttdf_cropped
 #length(sttdf_cropped@traj[[1]]@sp) + 
 #length(sttdf_cropped@traj[[2]]@sp)
 #nrow(sttdf_cropped@data)
+
+#plot(sttdf_cropped)
+#plot(pol, add = T)
+#save(sttdf_cropped, file = "crop_demo.Rout.save")

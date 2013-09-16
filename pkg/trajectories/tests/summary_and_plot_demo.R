@@ -1,5 +1,9 @@
 ##NOTE
-##Use test/read.R to read in the (part of) GeoLife dataset as "sttdf" for a better demo
+##You may Use test/read.R to read in the (part of) GeoLife dataset as "sttdf" for a better demo
+
+##Load libraries
+library(spacetime)
+library(trajectories)
 
 ##Load sample data
 data(traj_sample)

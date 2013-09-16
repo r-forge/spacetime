@@ -35,6 +35,7 @@ crop <- function(sttdf, pol){
         sp_inside <- SpatialPoints(sp_inside, proj4string = sttdf@traj[[i]]@sp@proj4string)
         time_inside <- sti@time[sub_trip_index, ]
         data_inside <- sttdf@data[sub_trip_index + points_processed, ]
+        data_inside <- as.data.frame(data_inside)
         
         stis <- c(stis, STI(sp_inside, time_inside))
         data <- rbind(data, data_inside)

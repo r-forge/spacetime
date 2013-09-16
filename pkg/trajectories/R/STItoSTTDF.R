@@ -1,6 +1,3 @@
-#library("spacetime")
-#library("maptools")
-
 STItoSTTDF <- function(list, id = NA, trip = NA, elev = NA){
   stt <- STT(list)
   
@@ -91,4 +88,3 @@ STItoSTTDF <- function(list, id = NA, trip = NA, elev = NA){
   ##Return a STTDF object
   return(sttdf)
 }
-
