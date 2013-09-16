@@ -3,10 +3,7 @@ library(spacetime)
 library(trajectories)
 
 ##Load sample data
-data(traj_sample)
-
-##Convert sample data into an STTDF object
-sttdf <- STItoSTTDF(traj_sample)
+sttdf <- data(geolife_sample)
 
 ##Create a SpatialPolygons object
 lat_min <- min(sttdf@traj[[1]]@sp$lat)
