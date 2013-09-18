@@ -46,9 +46,10 @@ for (d in dirs) {
 }
 
 object.size(lst)
-stt = STT(lst)
-rm(lst)
-dim(stt)
-object.size(stt)
-sttdf = STTDF(stt, data.frame(elev = elev))
+#stt = STT(lst)
+#rm(lst)
+#dim(stt)
+#object.size(stt)
+sttdf = STItoSTTDF(lst, id = id, trip = trip, elev = elev)
 object.size(sttdf)
+#save(sttdf, file = "geolife_sample.RData")
