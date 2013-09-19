@@ -36,7 +36,7 @@ aggregate <- function(sttdf, unit){
     for(point in 1:nrow(sttdf@data)){
       for(hour in 1:length(hourstring)){
         if(sttdf@data$hour[point] == hourstring[hour]){
-          hs$dist[hour] <- sum(hs$dist[hour], sttdf@data$dist[point], na.rm=TRUE)
+          hs$dist[hour] <- round(sum(hs$dist[hour], sttdf@data$dist[point], na.rm=TRUE), 4)
           hs$timeLapsed[hour] <- sum(hs$timeLapsed[hour], sttdf@data$timeLapsed[point], na.rm=TRUE)
           hs$elev[hour] <- sum(hs$elev[hour], sttdf@data$elev[point], na.rm=TRUE)
           hs$np[hour] <- hs$np[hour] + 1
@@ -61,7 +61,7 @@ aggregate <- function(sttdf, unit){
     for(point in 1:nrow(sttdf@data)){
       for(day in 1:length(daystring)){
         if(sttdf@data$day[point] == daystring[day]){
-          hs$dist[day] <- sum(hs$dist[day], sttdf@data$dist[point], na.rm=TRUE)
+          hs$dist[day] <- round(sum(hs$dist[day], sttdf@data$dist[point], na.rm=TRUE), 4)
           hs$timeLapsed[day] <- sum(hs$timeLapsed[day], sttdf@data$timeLapsed[point], na.rm=TRUE)
           hs$elev[day] <- sum(hs$elev[day], sttdf@data$elev[point], na.rm=TRUE)
           hs$np[day] <- hs$np[day] + 1
@@ -84,7 +84,7 @@ aggregate <- function(sttdf, unit){
     for(point in 1:nrow(sttdf@data)){
       for(month in 1:length(hourstring)){
         if(sttdf@data$month[point] == hourstring[month]){
-          hs$dist[month] <- sum(hs$dist[month], sttdf@data$dist[point], na.rm=TRUE)
+          hs$dist[month] <- round(sum(hs$dist[month], sttdf@data$dist[point], na.rm=TRUE), 4)
           hs$timeLapsed[month] <- sum(hs$timeLapsed[month], sttdf@data$timeLapsed[point], na.rm=TRUE)
           hs$elev[month] <- sum(hs$elev[month], sttdf@data$elev[point], na.rm=TRUE)
           hs$np[month] <- hs$np[month] + 1

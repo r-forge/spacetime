@@ -52,4 +52,5 @@ object.size(lst)
 #object.size(stt)
 sttdf = STItoSTTDF(lst, id = id, trip = trip, elev = elev)
 object.size(sttdf)
-#save(sttdf, file = "geolife_sample.RData")
+#geolife_sample <- sttdf
+#save(geolife_sample, file = "geolife_sample.RData")

@@ -1,0 +1,128 @@
+Trajectory Analysis in R - Final Post
+========================================================
+
+This project aimed to develop an R package named *trajectories* that is specifically catered for trajectory analysis based on existing R packages available such as *sp*, *spacetime*. Since the beginning of the project, progress has been made in three main aspects. First, several functions have been developed to allow coercion between common spatial classes for trajectories. Second, a set of functions was written to analyze the trajectory data. Third, a *plot()* function was created to specifically visualize trajectory data. In addition, two sample trajectory datasets were integrated to the package for demonstration as well as  for user testing. The package is managed at r-forge.org and can be viewed and downloaded at this [link](https://r-forge.r-project.org/R/?group_id=1550).
+
+For the rest of this post, I will first briefly introduce the sample datasets, and then discusses the *trajectories* package from the three aspects mentioned above.
+
+To demonstrate the functionality of the package, two sets of sample trajectory datasets are included in the package. The first dataset is named **traj_sample**. It was created from public GPS trajectories uploaded by user alex18 at [OpenStreetMap.org](http://www.openstreetmap.org/user/alex%5C%2018/traces/1507959). Five trajectories are available in this sample as five *STI* objects stored in a single list object in R. The second dataset, named **geolife_sample** was extracted from the [GeoLife](http://research.microsoft.com/en-us/downloads/b16d359d-d164-469e-9fd4-daa38f2b2e13/) dataset released by Microsoft. It includes the trajectories collected from users of mobile phone via GPS. A total of 15 trajectories from three users are stored in the dataset as a single *STTDF* object. The **traj_sample** dataset was mostly used for testing when developed the methods due to its relative small size. On contrary, the **geolife_sample** dataset is relative richer in the amount of trajectory data. Hence, it will be used later in this post to demonstrate the package. The size of the GeoLife dataset is 298.66MB. Users may choose to download the entire dataset for testing from the link on the [GeoLife](http://research.microsoft.com/en-us/downloads/b16d359d-d164-469e-9fd4-daa38f2b2e13/) webpage.
+
+The first step is to load the sample dataset **geolife_sample** from the *trajectories* package. The code for loading the dataset is shown below:
+
+```{r}
+#Load the package. You will see some compatibility-related warning messages. Just ignore them at this point.
+library("trajectories")
+
+#Load the geolife sample dataset
+data(geolife_sample)
+
+#Make the name shorter
+geolife <- geolife_sample
+class(geolife)
+slotNames(geolife)
+
+```
+
+The object *geolife* has four slots as specified as below:
+
+-  *sp*: the coordinates of minimum bounding box of the trajectories;
+
+-  *time*: the starting stamp and the ending time stamp of the trajectories;
+
+-  *endTime*: the ending time of the two time stamps in the *time* slot. Since the event recorded here are trajectory points, which has no duration over time, the *endTime* should be identical to *time*;
+
+-  *traj*: a list that contains all trajectories. Each trajectory is stored as an *STI* object;
+
+-  *data*: a dataframe that contains the attribute data, such as distance, time, average speed, elevation, of the all points in the trajectories.
+
+Next, three functions that allows for coercion between common spatial classes for trajectories are listed in the table below:
+
+Name          | Description
+------------- | -------------
+*STItoSTTDF()*  | Coerces a list of STI objects into STTDF and computes the trajectory attributes such as distance, time, average speed, turning angle, elevation change, etc.
+*STItoSpatialLines()*  | Coerces an STI object into an SpatialLines object. The time slot of the STI object is discarded.
+*STTDFtoSpatialLines()*  | Coerces an STTDF object into an SpatialLines object. The time  and data slot of the STTDF object is discarded.
+
+The usage of these three functions are shown below:
+
+```{r}
+sttdf <- STItoSTTDF(geolife@traj)
+class(sttdf)
+
+sl <- STItoSpatialLines(geolife@traj[[1]])
+class(sl)
+
+sl2 <- STTDFtoSpatialLines(geolife)
+class(sl2)
+
+```
+
+One of the major goals of trajectory analysis is to extract useful information from trajectory data. To this end, three functions were developed to manipulate and summarize the trajectory data.
+
+The *summary()* function summarizes the basic properties and statistics of the trajectory data, either stored as *STI* object or *STTDF* object.
+
+```{r}
+sti <- geolife@traj[[1]]
+summary(sti)
+
+summary(geolife)
+
+```
+
+The *aggregate()* function aggregates the trajectory data over various temporal scales such as hour, day of month, or month of year, and returns a dataframe object containing the summarization as results. In the dataframe, the first column indicates the temporal unit (e.g., hour, day, month). The second column contains the total distance in that unit. The third column contains the total time lapsed (second) in that unit. The forth column contains the average elevation in that unit. The fifth column contains the total number of points in that unit. The sixth column contains the average speed (km/h) in that unit.
+
+```{r}
+aggregate(geolife, "hour")
+```
+
+In the example above, the hourly statistics of the trajectory is listed in a dataframe with statistics for each hour being a row. Similarly, the daily statistics and monthly statistics can be obtained by executing *aggregate(geolife, “day”)* or *aggregate(geolife, “month”)*.
+
+The *crop()* function was designed to spatially select trajectories that overlay with a certain area. This is particularly useful when users want to spatially subset the trajectory data. Currently, the *crop()* function is able to spatially subset trajectory data using a *SpatialPolygons* object. At this point, only trajectories that entirely overlap within the polygon will be selected.
+
+```{r}
+#Create an SpatialPolygons object
+lat_min <- min(geolife@traj[[1]]@sp$lat)
+lat_max <- max(geolife@traj[[1]]@sp$lat)
+long_min <- min(geolife@traj[[1]]@sp$long)
+long_max <- max(geolife@traj[[1]]@sp$long)
+
+xpol <- c(long_min, 
+          long_max, 
+          long_max, 
+          long_min, 
+          long_min)
+ypol <- c(lat_min, 
+          lat_min, 
+          lat_max, 
+          lat_max, 
+          lat_min)
+
+pol <- SpatialPolygons(list(Polygons(list(Polygon(cbind(xpol,ypol))), ID="x1")))
+pol@proj4string <- CRS("+proj=longlat +datum=WGS84")
+
+#Crop the geolife dataset using the polygon created
+geolife_cropped <- crop(geolife, pol)
+
+```
+
+Last but not least, the *plot()* function is introduced here to visualize the results from the previous example. The *plot()* function can coerce either an *STI *object or an *STTDF *object into an *SpatialLines *object, and then plot the *SpatialLines *object using the drawing device in R. By default, the *plot()* draws a single *STI* object using black color while draws an *STTDF* object using distinct colors for each trajectories.
+```{r}
+#Plotting an STI object
+plot(geolife@traj[[1]])
+#Plotting an STTDF object
+plot(geolife)
+plot(pol, add=T)
+#Plotting an STI object cropped by a polygon
+plot(geolife_cropped)
+plot(pol, add=T)
+
+```
+
+
+The following aspects can be further developed/improved in future:
+
+-  Add an argument to *crop()* function that allows user choosing whether to select trajectories that entirely overlap with the polygon or select all trajectory points that overlap with the polygon.
+-  Extend the *plot()* function such that the trajectory attributes can be visualized using colors or width of the lines.
+-  a *sample()* function that allows sampling trajectory data in spatial dimension or temporal dimension.
+-  a *merge()* function that merges the trajectory data according to certain trajectory attributes such as id or trip.
+
