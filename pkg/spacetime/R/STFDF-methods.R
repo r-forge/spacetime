@@ -95,7 +95,7 @@ as.array.STFDF = function(x, ...) {
 	a
 }
 
-subs.STFDF <- function(x, i, j, ... , drop = TRUE) {
+subs.STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 	nr = dim(x)[1]
 	nc = dim(x)[2]
 	n.args = nargs()
@@ -110,7 +110,7 @@ subs.STFDF <- function(x, i, j, ... , drop = TRUE) {
 	if (missing.i && missing.j && missing.k)
 		return(x)
 
-	if (!missing.k) {
+	if (!missing.k && is(x, "STFDF")) {
 		x@data = x@data[ , k, drop = FALSE]
 		if (missing.j && n.args == 2)
 			return(x)
@@ -147,8 +147,9 @@ subs.STFDF <- function(x, i, j, ... , drop = TRUE) {
 		x@endTime = x@endTime[t] 
 	}
 	#x@data = x@data[ssel & tsel, k, drop = FALSE]
-	x@data = data.frame(
-		lapply(x@data, function(v) as.vector(matrix(v, nr, nc)[s,t])))
+	if (is(x, "STFDF"))
+		x@data = data.frame(
+			lapply(x@data, function(v) as.vector(matrix(v, nr, nc)[s,t])))
 	if (drop) {
 		if (length(s) == 1 && all(s > 0)) { # space index has only 1 item:
 			if (length(t) == 1) # drop time as well:
@@ -160,12 +161,17 @@ subs.STFDF <- function(x, i, j, ... , drop = TRUE) {
 				else
 					x = xts(x@data, ix, tzone = attr(x@time, "tzone"))
 			}
-		} else if (length(t) == 1) # only one time step:
-			x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
+		} else if (length(t) == 1) {
+			if(is(x, "STFDF")) # only one time step:
+				x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
+			else
+				x = x@sp
+		} 
 	}
 	x
 }
 setMethod("[", "STFDF", subs.STFDF)
+setMethod("[", "STF", subs.STFDF)
 
 # provide a na.omit-method for STFDF objects
 # removes rows and columns from the space-time grid

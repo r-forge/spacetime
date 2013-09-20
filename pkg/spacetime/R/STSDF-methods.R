@@ -39,7 +39,7 @@ as.data.frame.STSDF = function(x, row.names = NULL, ...) {
 setAs("STSDF", "data.frame", function(from) as.data.frame.STSDF(from))
 setAs("STSDF", "xts", function(from) as(as(from, "STFDF"), "xts")) # a good idea?
 
-subs.STSDF <- function(x, i, j, ... , drop = TRUE) {
+subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 	n.args = nargs()
 	dots = list(...)
 	missing.i = missing(i)
@@ -96,7 +96,8 @@ subs.STSDF <- function(x, i, j, ... , drop = TRUE) {
 	#x@sp = x@sp[s,] -- time and space topology not touched
 	#x@time = x@time[t]
 	sel = (si %in% s) & (ti %in% t)
-	x@data = x@data[sel, k, drop = FALSE]
+	if (is(x, "STSDF"))
+		x@data = x@data[sel, k, drop = FALSE]
 
 # TG: Tom Gottfried reported at
 # https://stat.ethz.ch/pipermail/r-sig-geo/2011-March/011231.html
@@ -127,13 +128,17 @@ subs.STSDF <- function(x, i, j, ... , drop = TRUE) {
 				#   (nrow(x)==length(order.by)) in index() # TG
 			}
 		} else if (length(t) == 1) { # only one time item
-			x = addAttrToGeom(x@sp[x@index[,1],], x@data, match.ID = FALSE)
-            # added index to achieve matching SpatialPoints and data.frame # TG
+			if (is(x, "STSDF"))
+				x = addAttrToGeom(x@sp[x@index[,1],], x@data, match.ID = FALSE)
+            	# added index to achieve matching SpatialPoints and data.frame # TG
+			else
+				x = x@sp[x@index[,1],]
 		}
 	}
 	x
 }
 setMethod("[", "STSDF", subs.STSDF)
+setMethod("[", "STS", subs.STSDF)
 
 setMethod("addAttrToGeom", signature(x = "STS", y = "data.frame"),
     function(x, y, match.ID, ...)

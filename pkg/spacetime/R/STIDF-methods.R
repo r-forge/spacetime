@@ -117,12 +117,18 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	x@sp = x@sp[i,]
 	x@time = x@time[i,]
 	x@endTime = x@endTime[i]
-	x@data = x@data[i, k, drop = FALSE]
-	if (drop && length(unique(index(x@time))) == 1)
-		x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
+	if (is(x, "STIDF"))
+		x@data = x@data[i, k, drop = FALSE]
+	if (drop && length(unique(index(x@time))) == 1) {
+		if (is(x, "STIDF"))
+			x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
+		else
+			x = x@sp
+	}
 	x
 }
 setMethod("[", "STIDF", subs.STIDF)
+setMethod("[", "STI", subs.STIDF)
 
 setMethod("addAttrToGeom", signature(x = "STI", y = "data.frame"),
     function(x, y, match.ID, ...)
