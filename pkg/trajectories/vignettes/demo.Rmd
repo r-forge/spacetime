@@ -1,3 +1,5 @@
+%\VignetteEngine{knitr::knitr}
+
 Trajectory Analysis in R - Final Post
 ========================================================
 

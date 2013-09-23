@@ -6,7 +6,8 @@ Author: Jinlong Yang <jinlong@psu.edu>, edzer pebesma <edzer.pebesma@uni-muenste
 Maintainer: edzer pebesma <edzer.pebesma@uni-muenster.de>
 Depends: R (>= 2.14.0), methods, sp, spacetime (>= 1.0-5), rgeos
 Imports: lattice, rgdal, maptools
-Suggests: adehabitatLT, diveMove
+Suggests: adehabitatLT, diveMove, knitr
 Description: Classes and methods for trajectory data
 License: GPL (>= 2)
 URL: https://r-forge.r-project.org/projects/spacetime/
+VignetteBuilder: knitr
