@@ -1,3 +1,5 @@
+%\VignetteIndexEntry{Trajectory Analysis in R}
+
 Trajectory Analysis in R - Final Post
 ========================================================
 
