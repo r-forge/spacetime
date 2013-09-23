@@ -10,8 +10,6 @@ export(traj_reader,
   STItoSTTDF,
   STTDFtoSpatialLines,
   STItoSpatialLines,
-  summary.STI,
-  summary.STTDF,
   plot.STI,
   plot.STTDF,
   crop,
@@ -19,7 +17,10 @@ export(traj_reader,
 )
 
 exportMethods(
-	plot
+	plot,
+	summary
 )
 
 #S3method(as.data.frame, STF)
+S3method(print, summary.STI)
+S3method(print, summary.STTDF)
